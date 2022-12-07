@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Producto" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3d6b39e3-eeeb-424c-b57e-b0e8066a5578">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="amigoleal"/>
+	<queryString language="SQL">
+		<![CDATA[select * from amigoleal.productos]]>
+	</queryString>
+	<field name="idproducto" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idproducto"/>
+		<property name="com.jaspersoft.studio.field.label" value="idproducto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="productos"/>
+	</field>
+	<field name="idcategoria" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idcategoria"/>
+		<property name="com.jaspersoft.studio.field.label" value="idcategoria"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="productos"/>
+	</field>
+	<field name="iddescuento" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="iddescuento"/>
+		<property name="com.jaspersoft.studio.field.label" value="iddescuento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="productos"/>
+	</field>
+	<field name="nombreproducto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombreproducto"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreproducto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="productos"/>
+	</field>
+	<field name="precioproducto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="precioproducto"/>
+		<property name="com.jaspersoft.studio.field.label" value="precioproducto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="productos"/>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="productos"/>
+	</field>
+	<group name="nombreproducto">
+		<groupExpression><![CDATA[$F{nombreproducto}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="456" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="-20" width="800" height="60" backcolor="#24324F" uuid="14fb0ae7-b5ac-4335-92a4-ac30fc84b917"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="30" y="-10" width="600" height="41" forecolor="#FFFFFF" uuid="33b5cfa4-a213-4b9c-98ac-b65523c5b33c"/>
+				<textElement textAlignment="Center">
+					<font size="32"/>
+				</textElement>
+				<text><![CDATA[EL AMIGOLEAL]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="50" width="800" height="30" backcolor="#24324F" uuid="129ba18c-467b-4682-9be6-193bc7325dc1"/>
+			</rectangle>
+			<bar3DChart>
+				<chart evaluationTime="Report">
+					<reportElement x="80" y="100" width="670" height="356" uuid="e86c1aac-79b2-4d7e-b427-72d78a334e31"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset resetType="Report"/>
+					<categorySeries>
+						<seriesExpression><![CDATA["precios productos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{nombreproducto}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{precioproducto}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+		</band>
+	</title>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="29" width="800" height="25" backcolor="#24324F" uuid="dc75cf94-c040-4a36-9b52-5b6bff295f1b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="11" y="32" width="91" height="20" forecolor="#FFFFFF" uuid="362d45d4-cdc1-4077-af4c-173a6634f170"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="91" y="32" width="190" height="20" forecolor="#FFFFFF" uuid="a77e777b-69e8-4dfc-b977-0fcb87b21614"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="28" width="91" height="24" forecolor="#FFFFFF" uuid="52ef170e-602a-4231-b718-eacf59d2682e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[HORA:]]></text>
+			</staticText>
+			<textField pattern="HH:mm">
+				<reportElement x="431" y="29" width="190" height="23" forecolor="#FFFFFF" uuid="43ca6f56-0afe-40ef-8ba6-ae7e918fc72c"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
