@@ -2,7 +2,6 @@ package com.example.ElAmigoLeal.Controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,13 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,45 +43,43 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class DescuentoController {
 	@Autowired
 	private DescuentoService descuentoService;
-	
-	@GetMapping("/descuento")//YA
-	public String listarDescuento(Model model) {
-		model.addAttribute("descuento", descuentoservice.listarTodosLosDescuentos());
-		return "Descuentos/Descuento";
+
+
+// listar
+	@GetMapping("/descuento")
+	public List<Descuento> listar() {
+		return descuentoService.findAll();
 	}
-	
-	@GetMapping ("/descuento/crear")
-	public String crearDescuento(Model model) {
-		Descuento descuento = new Descuento ();
-		model.addAttribute("descuento", descuento );
-		return "Descuentos/crear";
+
+	// guardar descuento
+	@PostMapping("/descuento/guardar")
+	public Descuento guardar(@RequestBody Descuento descuento) {
+		return descuentoService.save(descuento);
 	}
-	@PostMapping ("/descuento")
-	public String guardarDescuento(@ModelAttribute("descuento") Descuento descuento) {
-		descuentoservice.guardarDescuento(descuento);
-		return "redirect:/descuento";
-	}
-	@GetMapping("/descuento/editar/{iddescuento}")
-		public String editarDescuento(@PathVariable Integer iddescuento, Model model) {
-		model.addAttribute("descuento", descuentoservice.obtenerDescuentobyId(iddescuento));
-		return "Descuentos/editar";
-	}
-	
-	@PostMapping ("/descuento/{iddescuento}")
-	public String actualizarDescuento(@PathVariable Integer iddescuento, @ModelAttribute("descuento") Descuento descuento , Model model) {
-		Descuento descuentoExistente = descuentoservice.obtenerDescuentobyId(iddescuento);
-		descuentoExistente.setIddescuento(iddescuento);
-		descuentoExistente.setValordescuento(descuento.getValordescuento());
-		descuentoExistente.setFechadescuento(descuento.getFechadescuento());
-		
-		descuentoservice.actualizarDescuento(descuentoExistente);
-		return "redirect:/descuento";
-	}
+
 	@GetMapping("/descuento/{iddescuento}")
-	public String eliminarDescuento(@PathVariable Integer iddescuento) {
-		descuentoservice.eliminarDescuento(iddescuento);
-		return "redirect:/descuento";
+	public Descuento getDescuento(@PathVariable Integer iddescuento) {
+		return descuentoService.findbyId(iddescuento);
 	}
+
+	// editar descuento
+	@PutMapping("/descuento/{iddescuento}")
+	public Descuento editar(@RequestBody Descuento descuento, @PathVariable Integer iddescuento) {
+		Descuento descuentoActual = descuentoService.findbyId(iddescuento);
+		descuentoActual.setValordescuento(descuento.getValordescuento()); 
+                descuentoActual.setFechadescuento(descuento.getFechadescuento()); 
+
+		return descuentoService.save(descuentoActual);
+	}
+
+	// eliminar descuento
+	@DeleteMapping("/descuento/eliminar/{iddescuento}")
+	public void eliminar(@PathVariable Integer iddescuento) {
+		descuentoService.delete(iddescuento);
+	}
+
+
+
 	@GetMapping("/exportarExcelDescuento")
 	public void exportarListaDeRolExcel(HttpServletResponse response)throws IOException {
 		response.setContentType("aplication/octec-stream");

@@ -14,17 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ElAmigoLeal.Entity.Proveedor;
 import com.example.ElAmigoLeal.Entity.Proveedor;
 import com.example.ElAmigoLeal.Impl.ProveedorService;
 import com.example.ElAmigoLeal.Utilities.ListaProveedorExcel;
@@ -45,50 +46,47 @@ public class ProveedorController {
 	@Autowired
 	private ProveedorService proveedorService;
 
-	@GetMapping("/proveedor") // YA
-	public String listarProveedor(Model model) {
-		model.addAttribute("proveedor", proveedorservice.listarTodosLosProveedores());
-		return "Proveedores/Proveedor";
-	}
+	// listar
+		@GetMapping("/proveedor")
+		public List<Proveedor> listar() {
+			return proveedorService.findAll();
+		}
 
-	@GetMapping("/proveedor/crear")
-	public String crearProveedor(Model model) {
-		Proveedor proveedor = new Proveedor();
-		model.addAttribute("proveedor", proveedor);
-		return "Proveedores/crear";
-	}
+		// guardar proveedor
+		@PostMapping("/proveedor/guardar")
+		public Proveedor guardar(@RequestBody Proveedor proveedor ) {
+			return proveedorService.save(proveedor );
+		}
 
-	@PostMapping("/proveedor")
-	public String guardarProveedor(@ModelAttribute("proveedor") Proveedor proveedor) {
-		proveedorservice.guardarProveedor(proveedor);
-		return "redirect:/proveedor";
-	}
+		@GetMapping("/proveedor /{idproveedor}")
+		public Proveedor  getProveedor (@PathVariable Integer idproveedor ) {
+			return proveedorService.findbyId(idproveedor );
+		}
 
-	@GetMapping("/proveedor/editar/{idproveedor}")
-	public String editarProveedor(@PathVariable Integer idproveedor, Model model) {
-		model.addAttribute("proveedor", proveedorservice.obtenerProveedorbyId(idproveedor));
-		return "Proveedores/editar";
-	}
+		// editar proveedor
+		@PutMapping("/proveedor /{idproveedor }")
+		public Proveedor editar(@RequestBody Proveedor proveedor, @PathVariable Integer idproveedor) {
+			Proveedor proveedorActual = proveedorService.findbyId(idproveedor);
+			proveedorActual.setNombre(proveedor.getNombre()); 
+	        proveedorActual.setTelefono(proveedor.getTelefono()); 
+	        proveedorActual.setCorreo(proveedor.getCorreo()); 
+	        proveedorActual.setDireccion(proveedor.getDireccion()); 
 
-	@PostMapping("/proveedor/{idproveedor}")
-	public String actualizarProveedor(@PathVariable Integer idproveedor, @ModelAttribute("proveedor") Proveedor proveedor,
-			Model model) {
-		Proveedor proveedorExistente = proveedorservice.obtenerProveedorbyId(idproveedor);
-		proveedorExistente.setIdproveedor(idproveedor);
-		proveedorExistente.setNombre(proveedor.getNombre());
-		proveedorExistente.setTelefono(proveedor.getTelefono());
-		proveedorExistente.setCorreo(proveedor.getCorreo());
-		proveedorExistente.setDireccion(proveedor.getDireccion());
+			return proveedorService.save(proveedorActual);
+		}
+		
 
-		proveedorservice.actualizarProveedor(proveedorExistente);
-		return "redirect:/proveedor";
-	}
+		// eliminar proveedor
+		@DeleteMapping("/proveedor/eliminar/{idproveedor}")
+				public void eliminar(@PathVariable Integer idproveedor) {
+			proveedorService.delete(idproveedor);
+		}
+	
 
-	@GetMapping("/proveedor/{idproveedor}")
-	public String eliminarProveedor(@PathVariable Integer idproveedor) {
-		proveedorservice.eliminarProveedor(idproveedor);
-		return "redirect:/proveedor";
-	}
+
+
+
+
 	@GetMapping("/exportarExcelProveedor")
 	public void exportarListaDeProveedorExcel(HttpServletResponse response)throws IOException {
 		response.setContentType("aplication/octec-stream");
