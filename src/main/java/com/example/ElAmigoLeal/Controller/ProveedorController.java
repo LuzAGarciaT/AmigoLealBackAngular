@@ -58,13 +58,13 @@ public class ProveedorController {
 			return proveedorService.save(proveedor );
 		}
 
-		@GetMapping("/proveedor /{idproveedor}")
+		@GetMapping("/proveedor/{idproveedor}")
 		public Proveedor  getProveedor (@PathVariable Integer idproveedor ) {
 			return proveedorService.findbyId(idproveedor );
 		}
 
 		// editar proveedor
-		@PutMapping("/proveedor /{idproveedor}")
+		@PutMapping("/proveedor/{idproveedor}")
 		public Proveedor editar(@RequestBody Proveedor proveedor, @PathVariable Integer idproveedor) {
 			Proveedor proveedorActual = proveedorService.findbyId(idproveedor);
 			proveedorActual.setNombre(proveedor.getNombre()); 
