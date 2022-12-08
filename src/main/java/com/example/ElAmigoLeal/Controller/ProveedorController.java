@@ -64,7 +64,7 @@ public class ProveedorController {
 		}
 
 		// editar proveedor
-		@PutMapping("/proveedor /{idproveedor }")
+		@PutMapping("/proveedor /{idproveedor}")
 		public Proveedor editar(@RequestBody Proveedor proveedor, @PathVariable Integer idproveedor) {
 			Proveedor proveedorActual = proveedorService.findbyId(idproveedor);
 			proveedorActual.setNombre(proveedor.getNombre()); 
