@@ -2,6 +2,7 @@
 
 package com.example.ElAmigoLeal.Entity;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -26,10 +27,10 @@ public class Descuento {
 	private Integer iddescuento;
 
 	@Column(name = "valordescuento", length = 45)
-	private String valordescuento;
+	private Integer valordescuento;
 	
 	@Column(name = "fechadescuento", length = 45)
-	private String fechadescuento;
+	private Date fechadescuento;
 	
 	@JsonIgnore
 	@OneToMany(targetEntity = Usuario.class, cascade = CascadeType.ALL)
@@ -39,14 +40,14 @@ public class Descuento {
 	public Descuento (){
 		
 	}
-	public Descuento(Integer iddescuento, String valordescuento, String fechadescuento){
+	public Descuento(Integer iddescuento, Integer valordescuento, Date fechadescuento){
 		super();
 		this.iddescuento = iddescuento;
 		this.valordescuento = valordescuento;
 		this.fechadescuento = fechadescuento;
 	}
 	
-	public Descuento(String valordescuento, String fechadescuento){
+	public Descuento(Integer valordescuento, Date fechadescuento){
 		super();
 		this.valordescuento = valordescuento;
 		this.fechadescuento = fechadescuento;
@@ -60,19 +61,19 @@ public class Descuento {
 		this.iddescuento = iddescuento;
 	}
 
-	public String getValordescuento() {
+	public Integer getValordescuento() {
 		return valordescuento;
 	}
 
-	public void setValordescuento(String valordescuento) {
+	public void setValordescuento(Integer valordescuento) {
 		this.valordescuento = valordescuento;
 	}
 
-	public String getFechadescuento() {
+	public Date getFechadescuento() {
 		return fechadescuento;
 	}
 
-	public void setFechadescuento(String fechadescuento) {
+	public void setFechadescuento(Date fechadescuento) {
 		this.fechadescuento = fechadescuento;
 	}
 	@Override
