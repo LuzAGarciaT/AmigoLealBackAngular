@@ -13,31 +13,29 @@ import com.example.ElAmigoLeal.Repository.CarroCompraRepository;
 public class CarroCompraServiceImpl implements CarroCompraService {
 
 	@Autowired
-	private CarroCompraRepository carrocomprarepository;
+	private CarroCompraRepository carrocompraRepository;
 
 	@Override
-	public List<CarroCompra> listarTodasLosCarroCompra() {
-		return carrocomprarepository.findAll();
+	public List<CarroCompra> findAll() {
+		return  carrocompraRepository.findAll();
 	}
 
 	@Override
-	public CarroCompra guardarCarroCompra(CarroCompra carrocompra) {
-		return carrocomprarepository.save(carrocompra);
+	public CarroCompra save(CarroCompra carrocompra) {
+		return carrocompraRepository.save(carrocompra);
 	}
 
 	@Override
-	public CarroCompra obtenerCarroComprabyId(Integer idcarro) {
-		return carrocomprarepository.findById(idcarro).get();
+	public CarroCompra findbyId(Integer idcarro) {
+		return carrocompraRepository.findById(idcarro).orElse(null);
+
 	}
 
 	@Override
-	public CarroCompra actualizarCarroCompra(CarroCompra carrocompra) {
-		return carrocomprarepository.save(carrocompra);
+	public void delete(Integer idcarro) {
+		carrocompraRepository.deleteById(idcarro);
 	}
 
-	@Override
-	public void eliminarCarroCompra(Integer idcarro) {
-		carrocomprarepository.deleteById(idcarro);
-	}
+	
 
 }

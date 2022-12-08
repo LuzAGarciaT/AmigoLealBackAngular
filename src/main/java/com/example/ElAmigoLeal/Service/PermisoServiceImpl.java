@@ -18,7 +18,7 @@ public class PermisoServiceImpl implements PermisoService {
 
 	@Override
 	public List<Permiso> findAll() {
-		return (List<Permiso>) permisoRepository.findAll();
+		return  permisoRepository.findAll();
 	}
 
 	@Override

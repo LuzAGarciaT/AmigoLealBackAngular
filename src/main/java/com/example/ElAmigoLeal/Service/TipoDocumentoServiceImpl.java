@@ -18,7 +18,7 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
 
 	@Override
 	public List<TipoDocumento> findAll() {
-		return (List<TipoDocumento>) tipodocumentoRepository.findAll();
+		return tipodocumentoRepository.findAll();
 	}
 
 	@Override

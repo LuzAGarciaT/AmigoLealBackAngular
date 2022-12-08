@@ -15,6 +15,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
 	@Override
 	public List<Categoria> findAll() {
 		return  categoriaRepository.findAll();

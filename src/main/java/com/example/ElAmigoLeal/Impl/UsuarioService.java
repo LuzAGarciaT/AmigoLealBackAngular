@@ -12,7 +12,6 @@ public interface UsuarioService {
 
 	public Usuario findbyId(Integer idusuario);
 
-
 	public void delete(Integer idusuario);
 	
 	public List<Usuario> findByRol(Rol rol);

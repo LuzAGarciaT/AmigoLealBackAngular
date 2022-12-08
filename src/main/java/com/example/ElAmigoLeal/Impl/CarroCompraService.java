@@ -4,16 +4,15 @@ import java.util.List;
 
 
 import com.example.ElAmigoLeal.Entity.CarroCompra;
+import com.example.ElAmigoLeal.Entity.Rol;
+import com.example.ElAmigoLeal.Entity.Usuario;
 
 public interface CarroCompraService {
 
-	public List<CarroCompra> listarTodasLosCarroCompra();
+	public List<CarroCompra> findAll();
+	public CarroCompra save(CarroCompra carrocompra);
+	public CarroCompra findbyId(Integer idcarro);	
+	public void delete(Integer idcarro);
+	public List<CarroCompra> findByUsuario(Usuario usuario);
 	
-	public CarroCompra guardarCarroCompra(CarroCompra carrocompra);
-	
-	public CarroCompra obtenerCarroComprabyId(Integer idcarro);
-	
-	public CarroCompra actualizarCarroCompra(CarroCompra carrocompra);
-	
-	public void eliminarCarroCompra(Integer idcarro);
 }
