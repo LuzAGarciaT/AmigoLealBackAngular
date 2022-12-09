@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ElAmigoLeal.Entity.Factura;
+import com.example.ElAmigoLeal.Entity.Usuario;
 import com.example.ElAmigoLeal.Impl.FacturaService;
 import com.example.ElAmigoLeal.Repository.FacturaRepository;
 
@@ -13,31 +14,31 @@ import com.example.ElAmigoLeal.Repository.FacturaRepository;
 public class FacturaServiceImpl implements FacturaService {
 
 	@Autowired
-	private FacturaRepository facturarepository;
+	private FacturaRepository facturaRepository;
 
 	@Override
-	public List<Factura>  listarTodasLasFacturas() {
-		return facturarepository.findAll();
+	public List<Factura> findAll() {
+		return  facturaRepository.findAll();
 	}
 
 	@Override
-	public Factura guardarFactura(Factura factura){
-		return facturarepository.save(factura);
+	public Factura save(Factura factura) {
+		return facturaRepository.save(factura);
 	}
 
 	@Override
-	public Factura obtenerFacturabyId(Integer idfactura) {
-		return facturarepository.findById(idfactura).get();
+	public Factura findbyId(Integer idfactura) {
+		return facturaRepository.findById(idfactura).orElse(null);	
 	}
 
 	@Override
-	public Factura actualizarFactura(Factura factura) {
-		return facturarepository.save(factura);
+	public void delete(Integer idfactura) {
+		facturaRepository.deleteById(idfactura);
 	}
 
 	@Override
-	public void eliminarFactura(Integer idfactura) {
-		facturarepository.deleteById(idfactura);
+	public List<Factura> findByUsuario(Usuario usuario) {
+		return facturaRepository.findByUsuario(usuario);
 	}
 
 }

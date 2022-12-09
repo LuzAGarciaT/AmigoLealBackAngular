@@ -3,15 +3,17 @@ package com.example.ElAmigoLeal.Impl;
 import java.util.List;
 
 import com.example.ElAmigoLeal.Entity.Factura;
+import com.example.ElAmigoLeal.Entity.Usuario;
 
 public interface FacturaService {
-	public List<Factura> listarTodasLasFacturas();
 	
-	public Factura guardarFactura(Factura factura);
+	public List<Factura> findAll();
 	
-	public Factura obtenerFacturabyId(Integer idfactura);
+	public Factura save(Factura factura);
 	
-	public Factura actualizarFactura(Factura factura);
+	public Factura findbyId(Integer idfactura);
 	
-	public void eliminarFactura(Integer idfactura);
+	public void delete(Integer idfactura);
+	
+	public List <Factura> findByUsuario(Usuario usuario);
 }

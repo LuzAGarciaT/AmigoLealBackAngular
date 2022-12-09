@@ -9,8 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "facturas")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Factura {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,7 @@ public class Factura {
 	@Column(name = "fecha")
 	private String fecha;
 	@Column(name = "preciofact", length = 45)
-	private String preciofact;
+	private Integer preciofact;
 	
 	@ManyToOne
 	@JoinColumn(name="idusuario")
@@ -30,7 +33,7 @@ public class Factura {
 		
 	}
 
-	public Factura(Integer idfactura, String nombre, String fecha, String preciofact) {
+	public Factura(Integer idfactura, String nombre, String fecha, Integer preciofact) {
 		super();
 		this.idfactura = idfactura;
 		this.nombre = nombre;
@@ -38,7 +41,7 @@ public class Factura {
 		this.preciofact = preciofact;
 	}
 	
-	public Factura(String nombre, String fecha, String preciofact) {
+	public Factura(String nombre, String fecha, Integer preciofact) {
 		super();
 		this.nombre = nombre;
 		this.fecha = fecha;
@@ -69,11 +72,11 @@ public class Factura {
 		this.fecha = fecha;
 	}
 
-	public String getPreciofact() {
+	public Integer getPreciofact() {
 		return preciofact;
 	}
 
-	public void setPreciofact(String preciofact) {
+	public void setPreciofact(Integer preciofact) {
 		this.preciofact = preciofact;
 	}
 
