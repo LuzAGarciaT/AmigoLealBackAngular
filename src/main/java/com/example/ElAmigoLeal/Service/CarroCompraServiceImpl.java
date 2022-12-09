@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ElAmigoLeal.Entity.CarroCompra;
+import com.example.ElAmigoLeal.Entity.Usuario;
 import com.example.ElAmigoLeal.Impl.CarroCompraService;
 import com.example.ElAmigoLeal.Repository.CarroCompraRepository;
 
@@ -34,6 +35,11 @@ public class CarroCompraServiceImpl implements CarroCompraService {
 	@Override
 	public void delete(Integer idcarro) {
 		carrocompraRepository.deleteById(idcarro);
+	}
+
+	@Override
+	public List<CarroCompra> findByUsuario(Usuario usuario) {
+		return carrocompraRepository.findByUsuario(usuario);
 	}
 
 	
