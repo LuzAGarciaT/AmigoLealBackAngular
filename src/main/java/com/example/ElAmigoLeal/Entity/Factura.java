@@ -18,8 +18,7 @@ public class Factura {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idfactura;
-	@Column(name = "nombre", length = 45)
-	private String nombre;
+	
 	@Column(name = "fecha")
 	private String fecha;
 	@Column(name = "preciofact", length = 45)
@@ -33,19 +32,10 @@ public class Factura {
 		
 	}
 
-	public Factura(Integer idfactura, String nombre, String fecha, Integer preciofact) {
-		super();
-		this.idfactura = idfactura;
-		this.nombre = nombre;
-		this.fecha = fecha;
-		this.preciofact = preciofact;
-	}
-	
-	public Factura(String nombre, String fecha, Integer preciofact) {
-		super();
-		this.nombre = nombre;
-		this.fecha = fecha;
-		this.preciofact = preciofact;
+	@Override
+	public String toString() {
+		return "Factura [idfactura=" + idfactura + ", fecha=" + fecha + ", preciofact=" + preciofact + ", usuario="
+				+ usuario + "]";
 	}
 
 	public Integer getIdfactura() {
@@ -54,14 +44,6 @@ public class Factura {
 
 	public void setIdfactura(Integer idfactura) {
 		this.idfactura = idfactura;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public String getFecha() {
@@ -88,11 +70,6 @@ public class Factura {
 		this.usuario = usuario;
 	}
 
-	@Override
-	public String toString() {
-		return "Factura [idfactura=" + idfactura + ", nombre=" + nombre + ", fecha=" + fecha + ", preciofact="
-				+ preciofact + ", usuario=" + usuario + "]";
-	}
-
+	
 	
 }
