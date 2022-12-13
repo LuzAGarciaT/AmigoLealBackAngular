@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ElAmigoLeal.Entity.DetalleDomicilio;
+import com.example.ElAmigoLeal.Entity.Domicilio;
 import com.example.ElAmigoLeal.Impl.DetalleDomicilioService;
 import com.example.ElAmigoLeal.Repository.DetalleDomicilioRepository;
 
@@ -13,32 +14,32 @@ import com.example.ElAmigoLeal.Repository.DetalleDomicilioRepository;
 public class DetalleDomicilioServiceImpl implements DetalleDomicilioService{
 
 	@Autowired
-	private DetalleDomicilioRepository detalledomiciliorepository;
+	private DetalleDomicilioRepository detalledomicilioRepository;
 
 	@Override
-	public List<DetalleDomicilio> listarTodosLosDetalleDomicilios() {
-		return detalledomiciliorepository.findAll();
+	public List<DetalleDomicilio> findAll() {
+		return detalledomicilioRepository.findAll();
 	}
 
 	@Override
-	public DetalleDomicilio guardarDetalleDomicilio(DetalleDomicilio detalledomicilio) {
-		return detalledomiciliorepository.save(detalledomicilio);
+	public DetalleDomicilio save(DetalleDomicilio detalledomicilio) {
+		return detalledomicilioRepository.save(detalledomicilio);
 	}
 
 	@Override
-	public DetalleDomicilio obtenerDetalleDomiciliobyId(Integer id) {
-		return detalledomiciliorepository.findById(id).get();
+	public DetalleDomicilio findbyId(Integer id) {
+		return detalledomicilioRepository.findById(id).orElse(null);
 	}
 
 	@Override
-	public DetalleDomicilio actualizarDetalleDomicilio(DetalleDomicilio detalledomicilio) {
-		return detalledomiciliorepository.save(detalledomicilio);
+	public void delete(Integer id) {
+		detalledomicilioRepository.deleteById(id);
 	}
 
 	@Override
-	public void eliminarDetalleDomicilio(Integer id) {
-		detalledomiciliorepository.deleteById(id);
+	public List<DetalleDomicilio> findbyDomicilio(Domicilio domicilio) {
+		return detalledomicilioRepository.findByDomicilio(domicilio);
 	}
 
-
+	
 }

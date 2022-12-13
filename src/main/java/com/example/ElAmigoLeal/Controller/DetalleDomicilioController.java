@@ -17,10 +17,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.ElAmigoLeal.Entity.DetalleDomicilio;
 import com.example.ElAmigoLeal.Entity.Domicilio;
@@ -40,56 +43,41 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 public class DetalleDomicilioController {
 
 	@Autowired
-	private DetalleDomicilioService detalledomicilioservice;
+	private DetalleDomicilioService detalledomicilioService;
 	
-	@Autowired
-	private DomicilioRepository domiciliorepository;
-	
-	@GetMapping("/detalledomicilio")//YA
-	public String listarDetalledomicilio(Model model) {
-		model.addAttribute("detalledomicilio", detalledomicilioservice.listarTodosLosDetalleDomicilios());
-		return "DetalleDomicilios/DetalleDomicilio";
+	@GetMapping("/detalledomicilio")
+	public List<DetalleDomicilio> listar() {
+		return detalledomicilioService.findAll();
 	}
-	
-	@GetMapping ("/detalledomicilio/crear")
-	public String crearDetalleDomicilio(Model model) {
-		DetalleDomicilio detalledomicilio = new DetalleDomicilio ();
-		List<Domicilio> listarTodosLosDomicilios = domiciliorepository.findAll();
-		
-		model.addAttribute("detalledomicilio", detalledomicilio );
-		model.addAttribute("listarTodosLosDomicilios", listarTodosLosDomicilios);
-		return "DetalleDomicilios/crear";
+
+	// guardar domicilio
+	@PostMapping("/detalledomicilio/guardar")
+	public DetalleDomicilio guardar(@RequestBody DetalleDomicilio detalledomicilio) {
+		return detalledomicilioService.save(detalledomicilio);
 	}
-	@PostMapping ("/detalledomicilio")
-	public String guardarDetalleDomicilio(@ModelAttribute("detalledomicilio") DetalleDomicilio detalledomicilio) {
-		detalledomicilioservice.guardarDetalleDomicilio(detalledomicilio);
-		return "redirect:/detalledomicilio";
-	}
-	@GetMapping("/detalledomicilio/editar/{id}")
-		public String editarDetalleDomicilio(@PathVariable Integer id, Model model) {
-		model.addAttribute("detalledomicilio", detalledomicilioservice.obtenerDetalleDomiciliobyId(id));
-		
-		List<Domicilio> listarTodosLosDomicilios = domiciliorepository.findAll();
-		model.addAttribute("listarTodosLosDomicilios", listarTodosLosDomicilios);
-		return "DetalleDomicilios/editar";
-	}
-	
-	@PostMapping ("/detalledomicilio/{id}")
-	public String actualizarDetalleDomicilio(@PathVariable Integer id, @ModelAttribute("detalledomicilio") DetalleDomicilio detalledomicilio , Model model) {
-		DetalleDomicilio detalledomicilioExistente = detalledomicilioservice.obtenerDetalleDomiciliobyId(id);
-		detalledomicilioExistente.setId(id);
-		detalledomicilioExistente.setDomicilio(detalledomicilio.getDomicilio());
-		detalledomicilioExistente.setEstado(detalledomicilio.getEstado());
-		detalledomicilioExistente.setDireccion(detalledomicilio.getDireccion());
-		detalledomicilioExistente.setTelefono(detalledomicilio.getTelefono());
-		
-		detalledomicilioservice.actualizarDetalleDomicilio(detalledomicilioExistente);
-		return "redirect:/detalledomicilio";
-	}
+
 	@GetMapping("/detalledomicilio/{id}")
-	public String eliminarDetalleDomicilio(@PathVariable Integer id) {
-		detalledomicilioservice.eliminarDetalleDomicilio(id);
-		return "redirect:/detalledomicilio";
+	public DetalleDomicilio getDetalleDomicilio(@PathVariable Integer id) {
+		return detalledomicilioService.findbyId(id);
+	}
+
+	// editar domicilio
+	@PutMapping("/detalledomicilio/{id}")
+	public DetalleDomicilio editar(@RequestBody DetalleDomicilio detalledomicilio, @PathVariable Integer id) {
+		DetalleDomicilio detalledomicilioActual = detalledomicilioService.findbyId(id);
+		detalledomicilioActual.setDomicilio(detalledomicilio.getDomicilio());
+		detalledomicilioActual.setEstado(detalledomicilio.getEstado());
+		detalledomicilioActual.setDireccion(detalledomicilio.getDireccion());
+		detalledomicilioActual.setTelefono(detalledomicilio.getTelefono());
+		
+		
+		return detalledomicilioService.save(detalledomicilioActual);
+	}
+
+	// eliminar domicilio
+	@DeleteMapping("/detalledomicilio/eliminar/{id}")
+	public void eliminar(@PathVariable Integer id) {
+		detalledomicilioService.delete(id);
 	}
 	@GetMapping("/exportarExcelDetalle")
 	public void exportarListaDeRolExcel(HttpServletResponse response)throws IOException {
@@ -103,7 +91,7 @@ public class DetalleDomicilioController {
 		
 		response.setHeader(cabecera, valor);
 		
-		List<DetalleDomicilio> detalledomicilio = detalledomicilioservice.listarTodosLosDetalleDomicilios();
+		List<DetalleDomicilio> detalledomicilio = detalledomicilioService.findAll();
 		
 		ListarDetalleDomicilioExcel exporter = new ListarDetalleDomicilioExcel(detalledomicilio);
 		exporter.Exportar(response);
@@ -112,7 +100,7 @@ public class DetalleDomicilioController {
 	@GetMapping("/ExportarPdfDetalle")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
-		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(detalledomicilioservice.listarTodosLosDetalleDomicilios());
+		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(detalledomicilioService.findAll());
 		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/ReporteDetalleDomicilio.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
