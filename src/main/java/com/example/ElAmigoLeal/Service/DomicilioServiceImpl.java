@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.ElAmigoLeal.Entity.CarroCompra;
 import com.example.ElAmigoLeal.Entity.Domicilio;
 import com.example.ElAmigoLeal.Impl.DomicilioService;
 import com.example.ElAmigoLeal.Repository.DomicilioRepository;
@@ -14,31 +15,32 @@ import com.example.ElAmigoLeal.Repository.DomicilioRepository;
 public class DomicilioServiceImpl implements DomicilioService{
 
 	@Autowired
-	private DomicilioRepository domiciliorepository;
+	private DomicilioRepository domicilioRepository;
 
 	@Override
-	public List<Domicilio> listarTodosLosDomicilios() {
-		return domiciliorepository.findAll();
+	public List<Domicilio> findAll() {
+		return  domicilioRepository.findAll();
 	}
 
 	@Override
-	public Domicilio guardarDomicilio(Domicilio domicilio) {
-		return domiciliorepository.save(domicilio);
+	public Domicilio save(Domicilio domicilio) {
+		return domicilioRepository.save(domicilio);
 	}
 
 	@Override
-	public Domicilio obtenerDomiciliobyId(Integer iddomicilio) {
-		return domiciliorepository.findById(iddomicilio).get();
+	public Domicilio findbyId(Integer iddomicilio) {
+		return domicilioRepository.findById(iddomicilio).orElse(null);
 	}
 
 	@Override
-	public Domicilio actualizarDomicilio(Domicilio domicilio) {
-		return domiciliorepository.save(domicilio);
+	public void delete(Integer iddomicilio) {
+		domicilioRepository.deleteById(iddomicilio);
 	}
 
 	@Override
-	public void eliminarDomicilio(Integer iddomicilio) {
-		domiciliorepository.deleteById(iddomicilio);
+	public List<Domicilio> findbyCarrocompra(CarroCompra carrocompra) {
+		return domicilioRepository.findByCarrocompra(carrocompra);
+
 	}
 
 	

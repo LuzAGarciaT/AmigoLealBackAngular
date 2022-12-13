@@ -17,15 +17,22 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ElAmigoLeal.Entity.CarroCompra;
+import com.example.ElAmigoLeal.Entity.Domicilio;
 import com.example.ElAmigoLeal.Entity.Domicilio;
 import com.example.ElAmigoLeal.Impl.DomicilioService;
-import com.example.ElAmigoLeal.Repository.CarroCompraRepository;
+import com.example.ElAmigoLeal.Repository.DomicilioRepository;
 import com.example.ElAmigoLeal.Utilities.ListarDomicilioExcel;
 
 import net.sf.jasperreports.engine.JRException;
@@ -36,60 +43,49 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-@Controller
+
+@RestController
+@CrossOrigin(origins = "*", methods = { RequestMethod.PUT, RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE })
+@RequestMapping(path = "/api")
 public class DomicilioController {
-	@Autowired
-	private DomicilioService domicilioservice;
 	
 	@Autowired
-	private CarroCompraRepository carrocomprarepository;
+	private DomicilioService domicilioService;
 	
-	@GetMapping("/domicilio")//YA
-	public String listarDomicilio(Model model) {
-		model.addAttribute("domicilio", domicilioservice.listarTodosLosDomicilios());
-		return "Domicilios/Domicilio";
+	@GetMapping("/domicilio")
+	public List<Domicilio> listar() {
+		return domicilioService.findAll();
 	}
-	
-	@GetMapping ("/domicilio/crear")
-	public String crearDomicilio(Model model) {
-		Domicilio domicilio = new Domicilio ();
-		 List<CarroCompra> listarTodasLosCarroCompra = carrocomprarepository.findAll();
-		 
-		model.addAttribute("domicilio", domicilio );
-		model.addAttribute("listarTodasLosCarroCompra", listarTodasLosCarroCompra);
-		return "Domicilios/crear";
+
+	// guardar domicilio
+	@PostMapping("/domicilio/guardar")
+	public Domicilio guardar(@RequestBody Domicilio domicilio) {
+		return domicilioService.save(domicilio);
 	}
-	@PostMapping ("/domicilio")
-	public String guardarDomicilio(@ModelAttribute("domicilio") Domicilio domicilio) {
-		domicilioservice.guardarDomicilio(domicilio);
-		return "redirect:domicilio";
-	}
-	@GetMapping("/domicilio/editar/{iddomicilio}")
-		public String editarDomicilio(@PathVariable Integer iddomicilio, Model model) {
-		model.addAttribute("domicilio", domicilioservice.obtenerDomiciliobyId(iddomicilio));
-		
-		 List<CarroCompra> listarTodasLosCarroCompra = carrocomprarepository.findAll();
-		 model.addAttribute("listarTodasLosCarroCompra", listarTodasLosCarroCompra);
-			
-		 return "Domicilios/editar";
-	}
-	
-	@PostMapping ("/domicilio/{iddomicilio}")
-	public String actualizarDomicilio(@PathVariable Integer iddomicilio, @ModelAttribute("domicilio") Domicilio domicilio , Model model) {
-		Domicilio domicilioExistente = domicilioservice.obtenerDomiciliobyId(iddomicilio);
-		domicilioExistente.setIddomicilio(iddomicilio);
-		domicilioExistente.setCarrocompra(domicilio.getCarrocompra());
-		domicilioExistente.setDescripcion(domicilio.getDescripcion());
-		
-		domicilioservice.actualizarDomicilio(domicilioExistente);
-		return "redirect:/domicilio";
-	}
-	
+
 	@GetMapping("/domicilio/{iddomicilio}")
-	public String eliminarDomicilio(@PathVariable Integer iddomicilio) {
-		domicilioservice.eliminarDomicilio(iddomicilio);
-		return "redirect:/domicilio";
+	public Domicilio getDomicilio(@PathVariable Integer iddomicilio) {
+		return domicilioService.findbyId(iddomicilio);
 	}
+
+	// editar domicilio
+	@PutMapping("/domicilio/{iddomicilio}")
+	public Domicilio editar(@RequestBody Domicilio domicilio, @PathVariable Integer iddomicilio) {
+		Domicilio domicilioActual = domicilioService.findbyId(iddomicilio);
+		domicilioActual.setDescripcion(domicilio.getDescripcion());
+		domicilioActual.setCarrocompra(domicilio.getCarrocompra());
+		
+		
+		return domicilioService.save(domicilioActual);
+	}
+
+	// eliminar domicilio
+	@DeleteMapping("/domicilio/eliminar/{iddomicilio}")
+	public void eliminar(@PathVariable Integer iddomicilio) {
+		domicilioService.delete(iddomicilio);
+	}
+	
+	
 	@GetMapping("/exportarExcelDomicilio")
 	public void exportarListaDeDomicilioExcel(HttpServletResponse response)throws IOException {
 		response.setContentType("aplication/octec-stream");
@@ -102,7 +98,7 @@ public class DomicilioController {
 		
 		response.setHeader(cabecera, valor);
 		
-		List<Domicilio> domicilio = domicilioservice.listarTodosLosDomicilios();
+		List<Domicilio> domicilio = domicilioService.findAll();
 		
 		ListarDomicilioExcel exporter = new ListarDomicilioExcel(domicilio);
 		exporter.Exportar(response);
@@ -110,7 +106,7 @@ public class DomicilioController {
 	@GetMapping("/ExportarPdfDomicilio")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
-		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(domicilioservice.listarTodosLosDomicilios());
+		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(domicilioService.findAll());
 		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/ReporteDomicilio.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();

@@ -70,10 +70,6 @@ public class ListarFacturaExcel {
 			hoja.autoSizeColumn(0);
 			celda.setCellStyle(estilo);
 			
-			celda = fila.createCell(1);
-			celda.setCellValue(factura.getNombre());
-			hoja.autoSizeColumn(0);
-			celda.setCellStyle(estilo);
 			
 			celda = fila.createCell(2);
 			celda.setCellValue(factura.getFecha());
