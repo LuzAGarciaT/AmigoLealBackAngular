@@ -9,6 +9,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import net.sf.jasperreports.engine.JRException;
@@ -32,79 +34,61 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ElAmigoLeal.Entity.Categoria;
 import com.example.ElAmigoLeal.Entity.Descuento;
+import com.example.ElAmigoLeal.Entity.Producto;
 import com.example.ElAmigoLeal.Entity.Producto;
 import com.example.ElAmigoLeal.Impl.ProductoService;
 import com.example.ElAmigoLeal.Repository.CategoriaRepository;
 import com.example.ElAmigoLeal.Repository.DescuentoRepository;
 import com.example.ElAmigoLeal.Utilities.ListarProductoExcel;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "*", methods = { RequestMethod.PUT, RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE })
+@RequestMapping(path = "/api")
 public class ProductoController {
 	@Autowired
-	private ProductoService productoservice;
+	private ProductoService productoService;
 	
-	@Autowired
-	private CategoriaRepository categoriarepository;
-	
-	@Autowired
-	private DescuentoRepository descuentorepository;
-	
-	
-	@GetMapping("/producto")//YA
-	public String listarProducto(Model model) {
-		model.addAttribute("producto", productoservice.listarTodosLosProductos());
-		return "Productos/Producto";
+	@GetMapping("/producto")
+	public List<Producto> listar() {
+		return productoService.findAll();
 	}
-	
-	@GetMapping ("/producto/crear")
-	public String crearProducto(Model model) {
-		Producto producto = new Producto ();
-		List<Categoria> listarTodosLosCategorias = categoriarepository.findAll();
-		List<Descuento> listarTodosLosDescuentos = descuentorepository.findAll();
-		
-		model.addAttribute("producto", producto );
-		model.addAttribute("listarTodosLosCategorias", listarTodosLosCategorias);
-		model.addAttribute("listarTodosLosDescuentos", listarTodosLosDescuentos);
-		return "Productos/crear";
+
+	// guardar producto
+	@PostMapping("/producto/guardar")
+	public Producto guardar(@RequestBody Producto producto) {
+		return productoService.save(producto);
 	}
-	@PostMapping ("/producto")
-	public String guardarProducto(@ModelAttribute("producto") Producto producto) {
-		productoservice.guardarProducto(producto);
-		return "redirect:producto";
-	}
-	@GetMapping("/producto/editar/{idproducto}")
-		public String editarProducto(@PathVariable Integer idproducto, Model model) {
-		model.addAttribute("producto", productoservice.obtenerProductobyId(idproducto));
-		List<Categoria> listarTodosLosCategorias = categoriarepository.findAll();
-		model.addAttribute("listarTodosLosCategorias", listarTodosLosCategorias );
-		
-		List<Descuento> listarTodosLosDescuentos = descuentorepository.findAll();
-		model.addAttribute("listarTodosLosDescuentos", listarTodosLosDescuentos);
-			
-		return "Productos/editar";
-	}
-	
-	@PostMapping ("/producto/{idproducto}")
-	public String actualizarProducto(@PathVariable Integer idproducto, @ModelAttribute("producto") Producto producto , Model model) {
-		Producto productoExistente = productoservice.obtenerProductobyId(idproducto);
-		productoExistente.setIdproducto(idproducto);
-		productoExistente.setCategoria(producto.getCategoria());
-		productoExistente.setDescuento(producto.getDescuento());
-		productoExistente.setPrecioproducto(producto.getPrecioproducto());
-		productoExistente.setNombreproducto(producto.getNombreproducto());
-		productoExistente.setDescripcion(producto.getDescripcion());
-		
-		productoservice.actualizarProducto(productoExistente);
-		return "redirect:/producto";
-	}
-	
+
 	@GetMapping("/producto/{idproducto}")
-	public String eliminarProducto(@PathVariable Integer idproducto) {
-		productoservice.eliminarProducto(idproducto);
-		return "redirect:/producto";
+	public Producto getProducto(@PathVariable Integer idproducto) {
+		return productoService.finallById(idproducto);
+	}
+
+	// editar producto
+	@PutMapping("/producto/{idproducto}")
+	public Producto editar(@RequestBody Producto producto, @PathVariable Integer idproducto) {
+		Producto productoActual = productoService.finallById(idproducto);
+		productoActual.setNombreproducto(producto.getNombreproducto());
+		productoActual.setCategoria(producto.getCategoria());
+		productoActual.setDescuento(producto.getDescuento());
+		productoActual.setPrecioproducto(producto.getPrecioproducto());
+		productoActual.setDescripcion(producto.getDescripcion());
+
+		return productoService.save(productoActual);
+	}
+
+	// eliminar producto
+	@DeleteMapping("/producto/eliminar/{idproducto}")
+	public void eliminar(@PathVariable Integer idproducto) {
+		productoService.delete(idproducto);
 	}
 	@GetMapping("/exportarExcelProducto")
 	public void exportarListaDeRolExcel(HttpServletResponse response)throws IOException {
@@ -118,7 +102,7 @@ public class ProductoController {
 		
 		response.setHeader(cabecera, valor);
 		
-		List<Producto> producto = productoservice.listarTodosLosProductos();
+		List<Producto> producto = productoService.findAll();
 		
 		ListarProductoExcel exporter = new ListarProductoExcel(producto);
 		exporter.Exportar(response);
@@ -127,7 +111,7 @@ public class ProductoController {
 	@GetMapping("/ExportarPdfProducto")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
-		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(productoservice.listarTodosLosProductos());
+		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(productoService.findAll());
 		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/ReporteProducto.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
@@ -142,7 +126,7 @@ public class ProductoController {
 	@GetMapping("/ExportarGraficaProducto")
 	public ResponseEntity<byte[]> generateGrafica() throws Exception, JRException {
 		
-		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(productoservice.listarTodosLosProductos());
+		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(productoService.findAll());
 		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/prueba/Producto.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();

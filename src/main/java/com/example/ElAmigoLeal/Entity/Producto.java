@@ -13,8 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "productos")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Producto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +38,17 @@ public class Producto {
 	@JoinColumn(name="iddescuento")
 	private Descuento descuento;
 	
+	@JsonIgnore
 	@OneToMany(targetEntity = Inventario.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idinventario", referencedColumnName = "idproducto")
 	private List<Inventario> inventario;
 	
+	@JsonIgnore
 	@OneToMany(targetEntity = CarroCompra.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idcarro", referencedColumnName = "idproducto")
 	private List<CarroCompra> carrocompra;
 	
+	@JsonIgnore
 	@OneToMany(targetEntity = Proveedor.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idproveedor", referencedColumnName = "idproducto")
 	private List<Proveedor> proveedor;
