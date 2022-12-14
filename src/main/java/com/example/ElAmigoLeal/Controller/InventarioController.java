@@ -1,5 +1,7 @@
 package com.example.ElAmigoLeal.Controller;
 import java.io.FileInputStream;
+
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,13 +17,21 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ElAmigoLeal.Entity.Inventario;
 import com.example.ElAmigoLeal.Entity.Producto;
+import com.example.ElAmigoLeal.Entity.Inventario;
 import com.example.ElAmigoLeal.Impl.InventarioService;
 import com.example.ElAmigoLeal.Repository.ProductoRepository;
 import com.example.ElAmigoLeal.Utilities.ListarInventarioExcel;
@@ -33,62 +43,43 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-@Controller
+@RestController
+@CrossOrigin(origins = "*", methods = { RequestMethod.PUT, RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE })
+@RequestMapping(path = "/api")
 public class InventarioController {
 
 	@Autowired
-	private InventarioService inventarioservice;
-	
-	@Autowired
-	private ProductoRepository productorepository;
-	
-	@GetMapping("/inventario") // YA
-	public String listarInventario(Model model) {
-		model.addAttribute("inventario", inventarioservice.listarTodosLosInventarios());
-		return "Inventarios/Inventario";
+	private InventarioService inventarioService;
+
+	@GetMapping("/inventario")
+	public List<Inventario> listar() {
+		return inventarioService.findAll();
 	}
 
-	@GetMapping("/inventario/crear")
-	public String crearUsuario(Model model) {
-		Inventario inventario = new Inventario();
-		List<Producto> listarTodosLosProductos = productorepository.findAll();
-		
-		model.addAttribute("inventario", inventario);
-		model.addAttribute("listarTodosLosProductos", listarTodosLosProductos);
-		
-		return "Inventarios/crear";
-	}
-	@PostMapping("/inventario")
-	public String guardarInventario(@ModelAttribute("inventario") Inventario inventario) {
-		inventarioservice.guardarInventario(inventario);
-		return "redirect:/inventario";
-	}
-
-	@GetMapping("/inventario/editar/{idinventario}")
-	public String editarInventario(@PathVariable Integer idinventario, Model model) {
-		model.addAttribute("inventario", inventarioservice.obtenerInventariobyId(idinventario));
-		List<Producto> listarTodosLosProductos = productorepository.findAll();
-		model.addAttribute("listarTodosLosProductos", listarTodosLosProductos );
-		return "Inventarios/editar";
-	}
-
-	@PostMapping("/inventario/{idinventario}")
-	public String actualizarInventario(@PathVariable Integer idinventario, @ModelAttribute("inventario") Inventario inventario, Model model) {
-		Inventario inventarioExistente = inventarioservice.obtenerInventariobyId(idinventario);
-		inventarioExistente.setIdinventario(idinventario);
-		inventarioExistente.setProducto(inventario.getProducto());
-		inventarioExistente.setNombreproducto(inventario.getNombreproducto());
-		inventarioExistente.setCantidad(inventario.getCantidad());
-
-		
-		inventarioservice.actualizarInventario(inventarioExistente);
-		return "redirect:/inventario";
+	// guardar inventario
+	@PostMapping("/inventario/guardar")
+	public Inventario guardar(@RequestBody Inventario inventario) {
+		return inventarioService.save(inventario);
 	}
 
 	@GetMapping("/inventario/{idinventario}")
-	public String eliminarInventario(@PathVariable Integer idinventario) {
-		inventarioservice.eliminarInventario(idinventario);
-		return "redirect:/inventario";
+	public Inventario getInventario(@PathVariable Integer idinventario) {
+		return inventarioService.findbyId(idinventario);
+	}
+
+	// editar inventario
+	@PutMapping("/inventario/{idinventario}")
+	public Inventario editar(@RequestBody Inventario inventario, @PathVariable Integer idinventario) {
+		Inventario inventarioActual = inventarioService.findbyId(idinventario);
+		inventarioActual.setProducto(inventario.getProducto());
+		inventarioActual.setCantidad(inventario.getCantidad());
+		return inventarioService.save(inventarioActual);
+	}
+
+	// eliminar inventario
+	@DeleteMapping("/inventario/eliminar/{idinventario}")
+	public void eliminar(@PathVariable Integer idinventario) {
+		inventarioService.delete(idinventario);
 	}
 	
 	@GetMapping("/exportarExcelInventario")
@@ -103,7 +94,7 @@ public class InventarioController {
 		
 		response.setHeader(cabecera, valor);
 		
-		List<Inventario> inventario = inventarioservice.listarTodosLosInventarios();
+		List<Inventario> inventario = inventarioService.findAll();
 		
 		ListarInventarioExcel exporter = new ListarInventarioExcel(inventario);
 		exporter.Exportar(response);
@@ -112,7 +103,7 @@ public class InventarioController {
 	@GetMapping("/ExportarPdfInventario")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
-		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(inventarioservice.listarTodosLosInventarios());
+		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(inventarioService.findAll());
 		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/ReporteInvetario.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
@@ -127,7 +118,7 @@ public class InventarioController {
 	@GetMapping("/ExportarGraficaInventario")
 	public ResponseEntity<byte[]> generateGrafica() throws Exception, JRException {
 		
-		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(inventarioservice.listarTodosLosInventarios());
+		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(inventarioService.findAll());
 		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/prueba/Inventario.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();

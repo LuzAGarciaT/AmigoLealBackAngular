@@ -6,36 +6,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ElAmigoLeal.Entity.Inventario;
+import com.example.ElAmigoLeal.Entity.Producto;
+import com.example.ElAmigoLeal.Entity.Usuario;
 import com.example.ElAmigoLeal.Impl.InventarioService;
 import com.example.ElAmigoLeal.Repository.InventarioRepository;
 
 @Service
 public class InventarioServiceImpl implements InventarioService {
 	@Autowired
-	private InventarioRepository inventariorepository;
+	private InventarioRepository inventarioRepository;
 
 	@Override
-	public List<Inventario> listarTodosLosInventarios() {
-		return inventariorepository.findAll();
+	public List<Inventario> findAll() {
+		return inventarioRepository.findAll();
 	}
 
 	@Override
-	public Inventario guardarInventario(Inventario inventario) {
-		return inventariorepository.save(inventario);
+	public Inventario save(Inventario inventario) {
+		return inventarioRepository.save(inventario);
 	}
 
 	@Override
-	public Inventario obtenerInventariobyId(Integer idinventario) {
-		return inventariorepository.findById(idinventario).get();
+	public Inventario findbyId(Integer idinventario) {
+		return inventarioRepository.findById(idinventario).orElse(null);
 	}
 
 	@Override
-	public Inventario actualizarInventario(Inventario inventario) {
-		return inventariorepository.save(inventario);
+	public void delete(Integer idinventario) {
+		inventarioRepository.deleteById(idinventario);
 	}
 
 	@Override
-	public void eliminarInventario(Integer idinventario) {
-		inventariorepository.deleteById(idinventario);
+	public List<Inventario> findByProducto(Producto producto) {
+		return inventarioRepository.findByProducto(producto);
 	}
+
 }

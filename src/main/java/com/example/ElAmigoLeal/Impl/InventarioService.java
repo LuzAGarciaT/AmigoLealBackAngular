@@ -3,17 +3,19 @@ package com.example.ElAmigoLeal.Impl;
 import java.util.List;
 
 import com.example.ElAmigoLeal.Entity.Inventario;
+import com.example.ElAmigoLeal.Entity.Producto;
+import com.example.ElAmigoLeal.Entity.Rol;
+import com.example.ElAmigoLeal.Entity.Usuario;
 
 
 public interface InventarioService {
-	public List<Inventario> listarTodosLosInventarios();
+	public List<Inventario> findAll();
 	
-	public Inventario guardarInventario(Inventario inventario);
+	public Inventario save(Inventario inventario);
 	
-	public Inventario obtenerInventariobyId(Integer idinventario);
+	public Inventario findbyId(Integer idinventario);
 	
-	public Inventario actualizarInventario(Inventario inventario);
-	
-	public void eliminarInventario(Integer idinventario);
+	public void delete(Integer idinventario);
+	public List<Inventario> findByProducto(Producto producto);
 
 }
