@@ -18,8 +18,7 @@ public class Inventario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idinventario;
-	@Column(name = "nombreproducto", length = 45)
-	private String nombreproducto;
+	
 	@Column(name = "cantidad", length = 45)
 	private Integer cantidad;
 	
@@ -31,17 +30,17 @@ public class Inventario {
 		
 	}
     
-	public Inventario(Integer idinventario, String nombreproducto, Integer cantidad, Producto producto) {
+	public Inventario(Integer idinventario,  Integer cantidad, Producto producto) {
 		super();
 		this.idinventario = idinventario;
-		this.nombreproducto = nombreproducto;
+		
 		this.cantidad = cantidad;
 		this.producto = producto;
 	}
     
-	public Inventario(String nombreproducto, Integer cantidad, Producto producto) {
+	public Inventario( Integer cantidad, Producto producto) {
 		super();
-		this.nombreproducto = nombreproducto;
+		
 		this.cantidad = cantidad;
 		this.producto = producto;
 	}
@@ -54,13 +53,7 @@ public class Inventario {
 		this.idinventario = idinventario;
 	}
 
-	public String getNombreproducto() {
-		return nombreproducto;
-	}
 
-	public void setNombreproducto(String nombreproducto) {
-		this.nombreproducto = nombreproducto;
-	}
 
 	public Integer getCantidad() {
 		return cantidad;
@@ -80,7 +73,7 @@ public class Inventario {
 
 	@Override
 	public String toString() {
-		return "Inventario [idinventario=" + idinventario + ", nombreproducto=" + nombreproducto + ", cantidad="
+		return "Inventario [idinventario=" + idinventario + ", nombreproducto=" + ", cantidad="
 				+ cantidad + ", producto=" + producto + "]";
 	}
 
