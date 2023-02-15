@@ -30,8 +30,8 @@ public class UsersServiceImpl  implements UsersService {
 			
 			while (rs.next()) 
 			{
-				if(rs.getString(6).equals(correo) && rs.getString(7).equals(password)) {
-					flag = 1;
+				if(rs.getString(8).equals(correo) && rs.getString(9).equals(password)) {
+					flag = rs.getInt(3);
 				}else {
 					System.out.println("Correo/contraseña invalidos");
 					flag = 0;
@@ -41,6 +41,7 @@ public class UsersServiceImpl  implements UsersService {
 			
 			e.printStackTrace();
 		}
+		
 		return flag;
 	}
 
