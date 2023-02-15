@@ -34,8 +34,8 @@ public class Usuario {
 	private String sapellido;
 	@Column(name = "correo", length = 50)
 	private String correo;
-	@Column(name = "contraseña", length = 45)
-	private String contrasena;
+	@Column(name = "password", length = 45)
+	private String password;
 	
 	@ManyToOne
 	@JoinColumn(name="iddoc")
@@ -59,7 +59,7 @@ public class Usuario {
 	}
 
 	public Usuario(Integer idusuario, String pnombre, String snombre, String papellido, String sapellido, String correo,
-			String contrasena) {
+			String password) {
 		super();
 		this.idusuario = idusuario;
 		this.pnombre = pnombre;
@@ -67,18 +67,18 @@ public class Usuario {
 		this.papellido = papellido;
 		this.sapellido = sapellido;
 		this.correo = correo;
-		this.contrasena = contrasena;
+		this.password = password;
 	}
 	
 	public Usuario(String pnombre, String snombre, String papellido, String sapellido, String correo,
-			String contrasena) {
+			String password) {
 		super();
 		this.pnombre = pnombre;
 		this.snombre = snombre;
 		this.papellido = papellido;
 		this.sapellido = sapellido;
 		this.correo = correo;
-		this.contrasena = contrasena;
+		this.password = password;
 	}
 
 	public Integer getIdusuario() {
@@ -129,12 +129,12 @@ public class Usuario {
 		this.correo = correo;
 	}
 
-	public String getContrasena() {
-		return contrasena;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Rol getRol() {
@@ -156,7 +156,7 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "Usuario [idusuario=" + idusuario + ", pnombre=" + pnombre + ", snombre=" + snombre + ", papellido="
-				+ papellido + ", sapellido=" + sapellido + ", correo=" + correo + ", contrasena=" + contrasena
+				+ papellido + ", sapellido=" + sapellido + ", correo=" + correo + ", password=" + password
 				+ ", rol=" + rol + ", tipodocumento=" + tipodocumento + "]";
 	}
 

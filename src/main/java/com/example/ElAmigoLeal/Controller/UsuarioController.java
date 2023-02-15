@@ -76,7 +76,7 @@ public class UsuarioController {
 		usuarioActual.setPapellido(usuario.getPapellido());
 		usuarioActual.setSapellido(usuario.getSapellido());
 		usuarioActual.setCorreo(usuario.getCorreo());
-		usuarioActual.setContrasena(usuario.getContrasena());
+		usuarioActual.setPassword(usuario.getPassword());
 		usuarioActual.setRol(usuario.getRol());
 		usuarioActual.setTipodocumento(usuario.getTipodocumento());
 		return usuarioService.save(usuarioActual);
