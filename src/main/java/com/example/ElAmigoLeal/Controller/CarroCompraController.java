@@ -1,6 +1,7 @@
 package com.example.ElAmigoLeal.Controller;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -12,6 +13,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +32,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ElAmigoLeal.Entity.CarroCompra;
+import com.example.ElAmigoLeal.Entity.Rol;
 import com.example.ElAmigoLeal.Entity.CarroCompra;
 import com.example.ElAmigoLeal.Impl.CarroCompraService;
 import com.example.ElAmigoLeal.Repository.CarroCompraRepository;
 import com.example.ElAmigoLeal.Utilities.ListarCarroCompraExcel;
+import com.example.ElAmigoLeal.Utilities.ListarRolExcel;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -87,22 +91,18 @@ public class CarroCompraController {
 		carrocompraService.delete(idcarro);
 	}
 	
-	@GetMapping("/exportarExcelCarro")
-	public void exportarListaDeRolExcel(HttpServletResponse response)throws IOException {
-		response.setContentType("aplication/octec-stream");
+	@GetMapping("/carrocompra/exportarExcelCarro")
+	public ResponseEntity<InputStreamResource> exportar() throws IOException {
 		
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		String fechaActual = dateFormatter.format(new Date());
+		List<CarroCompra> listacarrocompra = carrocompraService.findAll();
+		ListarCarroCompraExcel excelExportar = new ListarCarroCompraExcel(listacarrocompra);
+		ByteArrayInputStream bais = excelExportar.export();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=listacarrocompra.xlsx");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
 		
-		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=CarroCompra_" + fechaActual + ".xlsx";
 		
-		response.setHeader(cabecera, valor);
 		
-		List<CarroCompra> carrocompra = carrocompraService.findAll();
-		
-		ListarCarroCompraExcel exporter = new ListarCarroCompraExcel(carrocompra);
-		exporter.Exportar(response);
 	}
 	@GetMapping("/ExportarPdfCarroCompra")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
