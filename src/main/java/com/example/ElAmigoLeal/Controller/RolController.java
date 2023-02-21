@@ -88,14 +88,14 @@ public class RolController {
 	@GetMapping("/rol/exportarExcelRol")
 	public ResponseEntity<InputStreamResource> exportar() throws IOException {
 	
-			
-		
 		List<Rol> listarol = rolService.findAll();
 		ListarRolExcel excelExportar = new ListarRolExcel(listarol);
 		ByteArrayInputStream bais = excelExportar.export();
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "inline; filename=listarol.xlsx");
 		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
+		
+		
 		
 	}
 

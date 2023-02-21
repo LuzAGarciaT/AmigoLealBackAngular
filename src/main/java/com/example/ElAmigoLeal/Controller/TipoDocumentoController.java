@@ -1,5 +1,6 @@
 package com.example.ElAmigoLeal.Controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ElAmigoLeal.Entity.Rol;
 import com.example.ElAmigoLeal.Entity.TipoDocumento;
 import com.example.ElAmigoLeal.Impl.TipoDocumentoService;
+import com.example.ElAmigoLeal.Utilities.ListarRolExcel;
 import com.example.ElAmigoLeal.Utilities.ListarTipoDocumentoExcel;
 
 import net.sf.jasperreports.engine.JRException;
@@ -83,22 +86,16 @@ public class TipoDocumentoController {
 		tipodocumentoService.delete(iddoc);
 	}
 
-	@GetMapping("/exportarExcelDoc")
-	public void exportarListaDeTipoDocumentoExcel(HttpServletResponse response) throws IOException {
-		response.setContentType("aplication/octec-stream");
-
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		String fechaActual = dateFormatter.format(new Date());
-
-		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=TipoDocumento_" + fechaActual + ".xlsx";
-
-		response.setHeader(cabecera, valor);
-
-		List<TipoDocumento> tipodocumento = tipodocumentoService.findAll();
-
-		ListarTipoDocumentoExcel exporter = new ListarTipoDocumentoExcel(tipodocumento);
-		exporter.Exportar(response);
+	@GetMapping("/tipodocumento/exportarExcelTipoDoc")
+	public ResponseEntity<InputStreamResource> exportar() throws IOException {
+	
+		List<TipoDocumento> listatipoDocumento = tipodocumentoService.findAll();
+		ListarTipoDocumentoExcel excelExportar = new ListarTipoDocumentoExcel(listatipoDocumento);
+		ByteArrayInputStream bais = excelExportar.export();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=listatipodocumento.xlsx");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
+		
 	}
 
 	@GetMapping("/ExportarPdfDoc")
