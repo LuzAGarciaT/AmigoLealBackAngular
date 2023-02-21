@@ -1,5 +1,6 @@
 package com.example.ElAmigoLeal.Controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +32,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ElAmigoLeal.Entity.Domicilio;
+import com.example.ElAmigoLeal.Entity.Rol;
 import com.example.ElAmigoLeal.Entity.Domicilio;
 import com.example.ElAmigoLeal.Impl.DomicilioService;
 import com.example.ElAmigoLeal.Repository.DomicilioRepository;
 import com.example.ElAmigoLeal.Utilities.ListarDomicilioExcel;
+import com.example.ElAmigoLeal.Utilities.ListarRolExcel;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -86,22 +90,18 @@ public class DomicilioController {
 	}
 	
 	
-	@GetMapping("/exportarExcelDomicilio")
-	public void exportarListaDeDomicilioExcel(HttpServletResponse response)throws IOException {
-		response.setContentType("aplication/octec-stream");
+	@GetMapping("/domicilio/exportarExcelDomicilio")
+	public ResponseEntity<InputStreamResource> exportar() throws IOException {
 		
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		String fechaActual = dateFormatter.format(new Date());
+		List<Domicilio> listadomicilio= domicilioService.findAll();
+		ListarDomicilioExcel excelExportar = new ListarDomicilioExcel(listadomicilio);
+		ByteArrayInputStream bais = excelExportar.export();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=listadomicilio.xlsx");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
 		
-		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=Domicilio_" + fechaActual + ".xlsx";
 		
-		response.setHeader(cabecera, valor);
 		
-		List<Domicilio> domicilio = domicilioService.findAll();
-		
-		ListarDomicilioExcel exporter = new ListarDomicilioExcel(domicilio);
-		exporter.Exportar(response);
 	}
 	@GetMapping("/ExportarPdfDomicilio")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
