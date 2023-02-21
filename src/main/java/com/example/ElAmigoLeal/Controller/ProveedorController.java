@@ -1,5 +1,6 @@
 package com.example.ElAmigoLeal.Controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -11,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ElAmigoLeal.Entity.Proveedor;
 import com.example.ElAmigoLeal.Entity.Proveedor;
+import com.example.ElAmigoLeal.Entity.Proveedor;
 import com.example.ElAmigoLeal.Impl.ProveedorService;
 import com.example.ElAmigoLeal.Utilities.ListaProveedorExcel;
+
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -87,22 +91,18 @@ public class ProveedorController {
 
 
 
-	@GetMapping("/exportarExcelProveedor")
-	public void exportarListaDeProveedorExcel(HttpServletResponse response)throws IOException {
-		response.setContentType("aplication/octec-stream");
+	@GetMapping("/proveedor/exportarExcelProveedor")
+	public ResponseEntity<InputStreamResource> exportar() throws IOException {
 		
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		String fechaActual = dateFormatter.format(new Date());
+		List<Proveedor> listaproveedor = proveedorService.findAll();
+		ListaProveedorExcel excelExportar = new ListaProveedorExcel(listaproveedor);
+		ByteArrayInputStream bais = excelExportar.export();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=listaproveedor.xlsx");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
 		
-		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=Proveedor_" + fechaActual + ".xlsx";
 		
-		response.setHeader(cabecera, valor);
 		
-		List<Proveedor> proveedor = proveedorService.findAll();
-		
-		ListaProveedorExcel exporter = new ListaProveedorExcel(proveedor);
-		exporter.Exportar(response);
 	}
 	@GetMapping("/ExportarPdfProveedor")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
