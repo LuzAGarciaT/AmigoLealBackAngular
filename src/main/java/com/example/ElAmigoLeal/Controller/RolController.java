@@ -1,5 +1,6 @@
 package com.example.ElAmigoLeal.Controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -8,10 +9,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -43,6 +43,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 
 @RestController
 @CrossOrigin(origins = "*", methods = { RequestMethod.PUT, RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE })
@@ -84,22 +85,18 @@ public class RolController {
 		rolService.delete(idrol);
 	}
 
-	@GetMapping("/exportarExcelRol")
-	public void exportarListaDeRolExcel(HttpServletResponse response) throws IOException {
-		response.setContentType("aplication/octec-stream");
-
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		String fechaActual = dateFormatter.format(new Date());
-
-		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=Rol_" + fechaActual + ".xlsx";
-
-		response.setHeader(cabecera, valor);
-
-		List<Rol> rol = rolService.findAll();
-
-		ListarRolExcel exporter = new ListarRolExcel(rol);
-		exporter.Exportar(response);
+	@GetMapping("/rol/exportarExcelRol")
+	public ResponseEntity<InputStreamResource> exportar() throws IOException {
+	
+			
+		
+		List<Rol> listarol = rolService.findAll();
+		ListarRolExcel excelExportar = new ListarRolExcel(listarol);
+		ByteArrayInputStream bais = excelExportar.export();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=listarol.xlsx");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
+		
 	}
 
 	@GetMapping("/ExportarPdfRol")

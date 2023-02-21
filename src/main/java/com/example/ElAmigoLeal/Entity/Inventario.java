@@ -1,5 +1,7 @@
 package com.example.ElAmigoLeal.Entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ public class Inventario {
 	private Integer cantidad;
 	
 	@ManyToOne
-	@JoinColumn(name="idproducto")
+	@JoinColumn(name="nombreproducto")
 	private Producto producto;
 	
 	public Inventario() {
@@ -75,6 +77,11 @@ public class Inventario {
 	public String toString() {
 		return "Inventario [idinventario=" + idinventario + ", nombreproducto=" + ", cantidad="
 				+ cantidad + ", producto=" + producto + "]";
+	}
+
+	public Date getNombreProducto() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

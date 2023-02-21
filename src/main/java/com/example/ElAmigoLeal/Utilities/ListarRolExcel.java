@@ -1,5 +1,7 @@
 package com.example.ElAmigoLeal.Utilities;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -74,14 +76,15 @@ public class ListarRolExcel{
 			celda.setCellStyle(estilo);
 		}
 	}
-	public void Exportar(HttpServletResponse response) throws IOException {
+	public ByteArrayInputStream export() throws IOException {
 		escribircabzeradetabla();
 		escribirDatoDeTabla();
 		
-		ServletOutputStream outPutSteam = response.getOutputStream();
-		rol.write(outPutSteam);
+		ByteArrayOutputStream out= new ByteArrayOutputStream();
 		
+		rol.write(out);
 		rol.close();
-		outPutSteam.close();
+		
+		return new ByteArrayInputStream(out.toByteArray());
 	}
 }

@@ -67,7 +67,7 @@ public class ListarInventarioExcel {
 			celda.setCellStyle(estilo);
 			
 			celda = fila.createCell(1);
-			celda.setCellValue(inventario.getNombreproducto());
+			celda.setCellValue(inventario.getNombreProducto());
 			hoja.autoSizeColumn(0);
 			celda.setCellStyle(estilo);
 			

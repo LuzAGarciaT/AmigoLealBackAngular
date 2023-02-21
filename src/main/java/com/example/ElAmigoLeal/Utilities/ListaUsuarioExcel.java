@@ -61,7 +61,7 @@ public class ListaUsuarioExcel {
 	    celda.setCellStyle(estilo);
 	    
 	    celda = fila.createCell(6);
-	    celda.setCellValue("contrasena");
+	    celda.setCellValue("password");
 	    celda.setCellStyle(estilo);
 	}
 	
@@ -107,7 +107,7 @@ public class ListaUsuarioExcel {
 			celda.setCellStyle(estilo);
 			
 			celda = fila.createCell(6);
-			celda.setCellValue(usuario.getContrasena());
+			celda.setCellValue(usuario.getPassword());
 			hoja.autoSizeColumn(0);
 			celda.setCellStyle(estilo);
 		}
