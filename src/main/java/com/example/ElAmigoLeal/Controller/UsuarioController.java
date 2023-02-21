@@ -1,4 +1,5 @@
 package com.example.ElAmigoLeal.Controller;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -10,6 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ElAmigoLeal.Entity.Usuario;
+import com.example.ElAmigoLeal.Entity.Rol;
 import com.example.ElAmigoLeal.Entity.TipoDocumento;
 import com.example.ElAmigoLeal.Entity.Usuario;
 
@@ -34,6 +37,8 @@ import com.example.ElAmigoLeal.Impl.UsuarioService;
 import com.example.ElAmigoLeal.Repository.UsuarioRepository;
 import com.example.ElAmigoLeal.Repository.TipoDocumentoRepository;
 import com.example.ElAmigoLeal.Utilities.ListaUsuarioExcel;
+import com.example.ElAmigoLeal.Utilities.ListarRolExcel;
+import com.example.ElAmigoLeal.Utilities.ListarTipoDocumentoExcel;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -87,22 +92,17 @@ public class UsuarioController {
 	public void eliminar(@PathVariable Integer idusuario) {
 		usuarioService.delete(idusuario);
 	}
-	@GetMapping("/exportarExcelUsuario")
-	public void exportarListaDeUsuarioExcel(HttpServletResponse response)throws IOException {
-		response.setContentType("aplication/octec-stream");
+
+	@GetMapping("/usuario/exportarExcelUsuario")
+	public ResponseEntity<InputStreamResource> exportar() throws IOException {
+	
+		List<Usuario> listausuario= usuarioService.findAll();
+		ListaUsuarioExcel excelExportar = new ListaUsuarioExcel(listausuario);
+		ByteArrayInputStream bais = excelExportar.export();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=listausuario.xlsx");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
 		
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		String fechaActual = dateFormatter.format(new Date());
-		
-		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=Usuario_" + fechaActual + ".xlsx";
-		
-		response.setHeader(cabecera, valor);
-		
-		List<Usuario> usuario = usuarioService.findAll();
-		
-		ListaUsuarioExcel exporter = new ListaUsuarioExcel(usuario);
-		exporter.Exportar(response);
 	}
 	
 	@GetMapping("/ExportarPdfUsuario")

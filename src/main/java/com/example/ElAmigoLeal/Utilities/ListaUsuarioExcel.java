@@ -1,5 +1,7 @@
 package com.example.ElAmigoLeal.Utilities;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -112,14 +114,16 @@ public class ListaUsuarioExcel {
 			celda.setCellStyle(estilo);
 		}
 	}
-	public void Exportar(HttpServletResponse response) throws IOException {
+	
+	public ByteArrayInputStream export() throws IOException {
 		escribircabzeradetabla();
 		escribirDatoDeTabla();
 		
-		ServletOutputStream outPutSteam = response.getOutputStream();
-		usuario.write(outPutSteam);
+		ByteArrayOutputStream out= new ByteArrayOutputStream();
 		
+		usuario.write(out);
 		usuario.close();
-		outPutSteam.close();
+
+		return new ByteArrayInputStream(out.toByteArray());
 	}
 }
