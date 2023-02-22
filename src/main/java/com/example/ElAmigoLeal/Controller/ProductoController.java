@@ -1,7 +1,7 @@
 package com.example.ElAmigoLeal.Controller;
 
 import java.io.IOException;
-
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.util.HashMap;
 
@@ -30,6 +30,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,11 +44,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ElAmigoLeal.Entity.Categoria;
 import com.example.ElAmigoLeal.Entity.Descuento;
 import com.example.ElAmigoLeal.Entity.Producto;
+import com.example.ElAmigoLeal.Entity.Rol;
 import com.example.ElAmigoLeal.Entity.Producto;
 import com.example.ElAmigoLeal.Impl.ProductoService;
 import com.example.ElAmigoLeal.Repository.CategoriaRepository;
 import com.example.ElAmigoLeal.Repository.DescuentoRepository;
 import com.example.ElAmigoLeal.Utilities.ListarProductoExcel;
+import com.example.ElAmigoLeal.Utilities.ListarRolExcel;
 
 @RestController
 @CrossOrigin(origins = "*", methods = { RequestMethod.PUT, RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE })
@@ -90,22 +93,17 @@ public class ProductoController {
 	public void eliminar(@PathVariable Integer idproducto) {
 		productoService.delete(idproducto);
 	}
-	@GetMapping("/exportarExcelProducto")
-	public void exportarListaDeRolExcel(HttpServletResponse response)throws IOException {
-		response.setContentType("aplication/octec-stream");
+	@GetMapping("/producto/exportarExcelProducto")
+	public ResponseEntity<InputStreamResource> exportar() throws IOException {
 		
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		String fechaActual = dateFormatter.format(new Date());
+		List<Producto> listaproducto = productoService.findAll();
+		ListarProductoExcel excelExportar = new ListarProductoExcel(listaproducto);
+		ByteArrayInputStream bais = excelExportar.export();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=listaproducto.xlsx");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
 		
-		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=Producto_" + fechaActual + ".xlsx";
 		
-		response.setHeader(cabecera, valor);
-		
-		List<Producto> producto = productoService.findAll();
-		
-		ListarProductoExcel exporter = new ListarProductoExcel(producto);
-		exporter.Exportar(response);
 	}
 	
 	@GetMapping("/ExportarPdfProducto")
