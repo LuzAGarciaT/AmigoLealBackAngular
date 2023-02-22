@@ -1,5 +1,6 @@
 package com.example.ElAmigoLeal.Controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +29,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.ElAmigoLeal.Entity.Permiso;
+import com.example.ElAmigoLeal.Entity.Rol;
 import com.example.ElAmigoLeal.Entity.Permiso;
 import com.example.ElAmigoLeal.Impl.PermisoService;
 import com.example.ElAmigoLeal.Utilities.ListarPermisoExcel;
+import com.example.ElAmigoLeal.Utilities.ListarRolExcel;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -77,22 +82,18 @@ public class PermisoController {
 		permisoService.delete(idpermiso);
 	}
 
-	@GetMapping("/exportarExcelPermiso")
-	public void exportarListaDePermisoExcel(HttpServletResponse response)throws IOException {
-		response.setContentType("aplication/octec-stream");
+	@GetMapping("/permiso/exportarExcelPermiso")
+	public ResponseEntity<InputStreamResource> exportar() throws IOException {
 		
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		String fechaActual = dateFormatter.format(new Date());
+		List<Permiso> listapermiso = permisoService.findAll();
+		ListarPermisoExcel excelExportar = new ListarPermisoExcel(listapermiso);
+		ByteArrayInputStream bais = excelExportar.export();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=listapermiso.xlsx");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
 		
-		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=Permiso_" + fechaActual + ".xlsx";
 		
-		response.setHeader(cabecera, valor);
 		
-		List<Permiso> permiso = permisoService.findAll();
-		
-		ListarPermisoExcel exporter = new ListarPermisoExcel(permiso);
-		exporter.Exportar(response);
 	}
 	
 	@GetMapping("/ExportarPdfPermiso")

@@ -93,7 +93,7 @@ public class InventarioController {
 		ListarInventarioExcel excelExportar = new ListarInventarioExcel(listainventario);
 		ByteArrayInputStream bais = excelExportar.export();
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Disposition", "inline; filename=listarol.xlsx");
+		headers.add("Content-Disposition", "inline; filename=listainventario.xlsx");
 		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
 		
 		
