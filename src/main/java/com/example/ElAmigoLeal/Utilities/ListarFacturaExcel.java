@@ -1,5 +1,7 @@
 package com.example.ElAmigoLeal.Utilities;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -12,6 +14,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 
 import com.example.ElAmigoLeal.Entity.Factura;
 
@@ -82,14 +86,15 @@ public class ListarFacturaExcel {
 			celda.setCellStyle(estilo);
 		}
 	}
-	public void Exportar(HttpServletResponse response) throws IOException {
+	public ByteArrayInputStream export() throws IOException {
 		escribircabzeradetabla();
 		escribirDatoDeTabla();
 		
-		ServletOutputStream outPutSteam = response.getOutputStream();
-		factura.write(outPutSteam);
+		ByteArrayOutputStream out= new ByteArrayOutputStream();
 		
+		factura.write(out);
 		factura.close();
-		outPutSteam.close();
+		
+		return new ByteArrayInputStream(out.toByteArray());
 	}
 }

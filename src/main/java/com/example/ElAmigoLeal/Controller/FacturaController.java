@@ -1,5 +1,6 @@
 package com.example.ElAmigoLeal.Controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 
 
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +33,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ElAmigoLeal.Entity.Factura;
+import com.example.ElAmigoLeal.Entity.Rol;
 import com.example.ElAmigoLeal.Entity.Factura;
 import com.example.ElAmigoLeal.Impl.FacturaService;
 import com.example.ElAmigoLeal.Repository.FacturaRepository;
 import com.example.ElAmigoLeal.Utilities.ListarFacturaExcel;
+import com.example.ElAmigoLeal.Utilities.ListarRolExcel;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -83,23 +87,18 @@ public class FacturaController {
 			facturaService.delete(idfactura);
 		}
 
-	@GetMapping("/exportarExcelFactura")
-	public void exportarListaDeFacturaExcel(HttpServletResponse response)throws IOException {
-		response.setContentType("aplication/octec-stream");
+	@GetMapping("/factura/exportarExcelFactura")
+	public ResponseEntity<InputStreamResource> exportar() throws IOException {
 		
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		String fechaActual = dateFormatter.format(new Date());
+		List<Factura> listafactura = facturaService.findAll();
+		ListarFacturaExcel excelExportar = new ListarFacturaExcel(listafactura);
+		ByteArrayInputStream bais = excelExportar.export();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=listafactura.xlsx");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));	
 		
-		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=Factura_" + fechaActual + ".xlsx";
-		
-		response.setHeader(cabecera, valor);
-		
-		List<Factura> factura = facturaService.findAll();
-		
-		ListarFacturaExcel exporter = new ListarFacturaExcel(factura);
-		exporter.Exportar(response);
 	}
+	
 	@GetMapping("/ExportarPdfFactura")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
