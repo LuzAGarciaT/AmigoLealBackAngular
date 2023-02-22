@@ -1,4 +1,5 @@
 package com.example.ElAmigoLeal.Controller;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 
 
@@ -12,6 +13,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +33,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ElAmigoLeal.Entity.Inventario;
 import com.example.ElAmigoLeal.Entity.Producto;
+import com.example.ElAmigoLeal.Entity.Rol;
 import com.example.ElAmigoLeal.Entity.Inventario;
 import com.example.ElAmigoLeal.Impl.InventarioService;
 import com.example.ElAmigoLeal.Repository.ProductoRepository;
 import com.example.ElAmigoLeal.Utilities.ListarInventarioExcel;
+import com.example.ElAmigoLeal.Utilities.ListarRolExcel;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -82,23 +86,20 @@ public class InventarioController {
 		inventarioService.delete(idinventario);
 	}
 	
-	@GetMapping("/exportarExcelInventario")
-	public void exportarListaDeRolExcel(HttpServletResponse response)throws IOException {
-		response.setContentType("aplication/octec-stream");
+	@GetMapping("/inventario/exportarExcelInventario")
+	public ResponseEntity<InputStreamResource> exportar() throws IOException {
 		
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		String fechaActual = dateFormatter.format(new Date());
+		List<Inventario> listainventario = inventarioService.findAll();
+		ListarInventarioExcel excelExportar = new ListarInventarioExcel(listainventario);
+		ByteArrayInputStream bais = excelExportar.export();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=listarol.xlsx");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
 		
-		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=Inventario_" + fechaActual + ".xlsx";
 		
-		response.setHeader(cabecera, valor);
 		
-		List<Inventario> inventario = inventarioService.findAll();
-		
-		ListarInventarioExcel exporter = new ListarInventarioExcel(inventario);
-		exporter.Exportar(response);
 	}
+
 	
 	@GetMapping("/ExportarPdfInventario")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
