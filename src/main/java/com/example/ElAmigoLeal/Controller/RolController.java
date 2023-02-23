@@ -99,7 +99,7 @@ public class RolController {
 		
 	}
 
-	@GetMapping("/ExportarPdfRol")
+	@GetMapping("/rol/ExportarPdfRol")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 
 		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(rolService.findAll());
