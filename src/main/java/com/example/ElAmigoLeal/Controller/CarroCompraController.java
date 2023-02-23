@@ -104,7 +104,7 @@ public class CarroCompraController {
 		
 		
 	}
-	@GetMapping("/ExportarPdfCarroCompra")
+	@GetMapping("/carrocompra/ExportarPdfCarroCompra")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(carrocompraService.findAll());
@@ -118,7 +118,7 @@ public class CarroCompraController {
 		    headers.set(HttpHeaders.CONTENT_DISPOSITION, "incline;filename=ReporteCarroCompra.pdf");
 		    return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
 	}
-	@GetMapping("/ExportarGraficaCarroCompra")
+	@GetMapping("/carrocompra/ExportarGraficaCarroCompra")
 	public ResponseEntity<byte[]> generateGrafica() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(carrocompraService.findAll());
