@@ -106,7 +106,7 @@ public class ProductoController {
 		
 	}
 	
-	@GetMapping("/ExportarPdfProducto")
+	@GetMapping("/producto/ExportarPdfProducto")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(productoService.findAll());

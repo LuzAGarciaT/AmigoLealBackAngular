@@ -103,7 +103,7 @@ public class DomicilioController {
 		
 		
 	}
-	@GetMapping("/ExportarPdfDomicilio")
+	@GetMapping("/domicilio/ExportarPdfDomicilio")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(domicilioService.findAll());

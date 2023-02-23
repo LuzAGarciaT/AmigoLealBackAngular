@@ -99,7 +99,7 @@ public class FacturaController {
 		
 	}
 	
-	@GetMapping("/ExportarPdfFactura")
+	@GetMapping("/factura/ExportarPdfFactura")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(facturaService.findAll());

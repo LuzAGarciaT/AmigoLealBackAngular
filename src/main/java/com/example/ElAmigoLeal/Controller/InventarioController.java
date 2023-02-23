@@ -101,7 +101,7 @@ public class InventarioController {
 	}
 
 	
-	@GetMapping("/ExportarPdfInventario")
+	@GetMapping("/inventario/ExportarPdfInventario")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(inventarioService.findAll());

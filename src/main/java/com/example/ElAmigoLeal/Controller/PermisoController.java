@@ -96,7 +96,7 @@ public class PermisoController {
 		
 	}
 	
-	@GetMapping("/ExportarPdfPermiso")
+	@GetMapping("/permiso/ExportarPdfPermiso")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(permisoService.findAll());

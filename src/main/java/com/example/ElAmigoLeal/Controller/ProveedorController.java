@@ -104,7 +104,7 @@ public class ProveedorController {
 		
 		
 	}
-	@GetMapping("/ExportarPdfProveedor")
+	@GetMapping("/proveedor/ExportarPdfProveedor")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(proveedorService.findAll());
