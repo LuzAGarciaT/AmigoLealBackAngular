@@ -99,7 +99,7 @@ public class DescuentoController {
 	}
 
 	
-	@GetMapping("/ExportarPdfDescuento")
+	@GetMapping("/descuento/ExportarPdfDescuento")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(descuentoService.findAll());

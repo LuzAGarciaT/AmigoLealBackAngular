@@ -87,7 +87,7 @@ public class CategoriaController {
 		}
 
 	
-	@GetMapping("categoria/exportarExcelCategoria")
+	@GetMapping("/categoria/exportarExcelCategoria")
 	public ResponseEntity<InputStreamResource> exportar() throws IOException {
 		
 		List<Categoria> listacategoria = categoriaService.findAll();
@@ -100,7 +100,7 @@ public class CategoriaController {
 		
 		
 	}
-	@GetMapping("/ExportarPdfCategoria")
+	@GetMapping("/categoria/ExportarPdfCategoria")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(categoriaService.findAll());

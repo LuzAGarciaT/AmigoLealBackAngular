@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3052c9f6-8bb8-4010-9326-3537adb652b8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ConexionDb"/>
+	<queryString language="SQL">
+		<![CDATA[select * from amigoleal.inventarios]]>
+	</queryString>
+	<field name="idinventario" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idinventario"/>
+		<property name="com.jaspersoft.studio.field.label" value="idinventario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="inventarios"/>
+	</field>
+	<field name="idproducto" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idproducto"/>
+		<property name="com.jaspersoft.studio.field.label" value="idproducto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="inventarios"/>
+	</field>
+	<field name="producto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="producto"/>
+		<property name="com.jaspersoft.studio.field.label" value="producto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="inventarios"/>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="cantidad"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="inventarios"/>
+	</field>
+	<group name="producto">
+		<groupExpression><![CDATA[$F{producto}]]></groupExpression>
+	</group>
+	<title>
+		<band height="66" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="800" height="60" backcolor="#24324F" uuid="dd54dc6b-dee2-4b1b-9a83-ade00d4bda93"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="135" y="13" width="600" height="41" forecolor="#FFFFFF" uuid="58ca94e7-8a06-42ef-90cf-c7fe677fe7f1"/>
+				<textElement textAlignment="Center">
+					<font size="32"/>
+				</textElement>
+				<text><![CDATA[EL AMIGOLEAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="800" height="30" backcolor="#24324F" uuid="41ce67b9-1ba8-4e64-9249-e8307818d0a6"/>
+			</rectangle>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="395" splitType="Stretch">
+			<bar3DChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="0" width="800" height="350" uuid="a198628b-9452-4896-aa3e-0fb312ae13f0"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset resetType="Report"/>
+					<categorySeries>
+						<seriesExpression><![CDATA["PRODUCTOS"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{producto}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</bar3DChart>
+			<rectangle>
+				<reportElement x="0" y="355" width="800" height="25" backcolor="#24324F" uuid="e289f3ac-4066-4837-885e-7b85dec2003e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="361" width="91" height="31" forecolor="#FFFFFF" uuid="d7a08d42-55ee-4fdc-a4bd-14bde8047488"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="80" y="359" width="190" height="30" forecolor="#FFFFFF" uuid="04b4574f-0439-4748-be1c-c627e2b7aea1"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="359" width="91" height="31" forecolor="#FFFFFF" uuid="7d8d3c8c-08a7-419d-b7ef-3711c3236557"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[HORA:]]></text>
+			</staticText>
+			<textField pattern="HH:mm">
+				<reportElement x="340" y="358" width="190" height="30" forecolor="#FFFFFF" uuid="bb564ff6-ef80-4e3a-9002-03d2967e85c0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="37" splitType="Stretch"/>
+	</summary>
+</jasperReport>
