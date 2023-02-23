@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -58,6 +59,8 @@ import com.example.ElAmigoLeal.Utilities.ListarRolExcel;
 public class ProductoController {
 	@Autowired
 	private ProductoService productoService;
+	@Autowired
+	private DataSource dataSource;
 	
 	@GetMapping("/producto")
 	public List<Producto> listar() {
@@ -121,18 +124,17 @@ public class ProductoController {
 		    return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
 	}
 	
-	@GetMapping("/ExportarGraficaProducto")
+	@GetMapping("/producto/ExportarGraficaProducto")
 	public ResponseEntity<byte[]> generateGrafica() throws Exception, JRException {
 		
-		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(productoService.findAll());
-		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/prueba/Producto.jrxml"));
-		    
-		    HashMap<String, Object> map=new HashMap<>();
-		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);		    
-		    byte[] data = JasperExportManager.exportReportToPdf(report);
-		    
-		    HttpHeaders headers=new HttpHeaders();
-		    headers.set(HttpHeaders.CONTENT_DISPOSITION, "incline;filename=GraficaProducto.pdf");
-		    return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
-	}
+
+	    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/Precio.jrxml"));
+	    
+	    HashMap<String, Object> map=new HashMap<>();
+	    JasperPrint report = JasperFillManager.fillReport(compileReport, null, dataSource.getConnection());		    
+	    byte[] data = JasperExportManager.exportReportToPdf(report);
+	    
+	    HttpHeaders headers=new HttpHeaders();
+	    headers.set(HttpHeaders.CONTENT_DISPOSITION, "incline;filename=Grafica.pdf");
+	    return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);}
 }

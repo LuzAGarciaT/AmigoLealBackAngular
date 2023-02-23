@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -55,6 +56,9 @@ public class CarroCompraController {
 
 	@Autowired
 	private CarroCompraService carrocompraService;
+	
+	@Autowired
+	private DataSource dataSource;
 	
 	@GetMapping("/carrocompra")
 	public List<CarroCompra> listar() {
@@ -118,18 +122,19 @@ public class CarroCompraController {
 		    headers.set(HttpHeaders.CONTENT_DISPOSITION, "incline;filename=ReporteCarroCompra.pdf");
 		    return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
 	}
+	
 	@GetMapping("/carrocompra/ExportarGraficaCarroCompra")
 	public ResponseEntity<byte[]> generateGrafica() throws Exception, JRException {
 		
-		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(carrocompraService.findAll());
-		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/Grafica/GraficaCarrito.jrxml"));
+		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/compras.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
-		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);		    
+		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, dataSource.getConnection());		    
 		    byte[] data = JasperExportManager.exportReportToPdf(report);
 		    
 		    HttpHeaders headers=new HttpHeaders();
 		    headers.set(HttpHeaders.CONTENT_DISPOSITION, "incline;filename=GraficaCarroCompra.pdf");
 		    return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
+	
 	}
 }
