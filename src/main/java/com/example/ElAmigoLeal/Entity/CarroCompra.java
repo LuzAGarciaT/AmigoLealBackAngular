@@ -27,9 +27,6 @@ public class CarroCompra {
 	@Column(name = "precio")
 	private int precio;
 	
-	@Column(name = "cantidad")
-	private int cantidad;
-	
 	@Column(name = "cantidadpagar")
 	private int cantidadpagar;
 	
@@ -47,28 +44,27 @@ public class CarroCompra {
 	private List<Domicilio> domicilio;
 	
 	@JsonIgnore
-	@OneToMany(targetEntity = Producto.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idproducto", referencedColumnName = "idcarro")
-	private List<Producto> producto;
+	@OneToMany (targetEntity = CarroProducto.class, cascade=CascadeType.ALL)
+	@JoinColumn (name="idcarro", referencedColumnName = "idcarro")
+	private List<CarroProducto> carroProducto;
+	
 	
 	public CarroCompra() {
 	}
 
 
-	public CarroCompra(Integer idcarro, int precio, int cantidad, int cantidadpagar, String estado, Usuario usuario) {
+	public CarroCompra(Integer idcarro, int precio, int cantidadpagar, String estado, Usuario usuario) {
 		super();
 		this.idcarro = idcarro;
 		this.precio = precio;
-		this.cantidad = cantidad;
 		this.cantidadpagar = cantidadpagar;
 		this.estado = estado;
 		this.usuario = usuario;
 	}
 
-	public CarroCompra( int precio, int cantidad, int cantidadpagar, String estado, Usuario usuario) {
+	public CarroCompra( int precio, int cantidadpagar, String estado, Usuario usuario) {
 		super();
 		this.precio = precio;
-		this.cantidad = cantidad;
 		this.cantidadpagar = cantidadpagar;
 		this.estado = estado;
 		this.usuario = usuario;
@@ -93,17 +89,6 @@ public class CarroCompra {
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
-
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-
 
 	public int getCantidadpagar() {
 		return cantidadpagar;
@@ -137,9 +122,8 @@ public class CarroCompra {
 
 	@Override
 	public String toString() {
-		return "CarroCompra [idcarro=" + idcarro + ", precio=" + precio + ", cantidad=" + cantidad + ", cantidadpagar="
-				+ cantidadpagar + ", estado=" + estado + ", usuario=" + usuario + "]";
+		return "CarroCompra [idcarro=" + idcarro + ", precio=" + precio + ", cantidadpagar=" + cantidadpagar
+				+ ", estado=" + estado + ", usuario=" + usuario + ", domicilio=" + domicilio + "]";
 	}
 	
-
 }

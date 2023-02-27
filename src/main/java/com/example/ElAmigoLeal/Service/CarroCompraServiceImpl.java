@@ -38,8 +38,8 @@ public class CarroCompraServiceImpl implements CarroCompraService {
 	}
 
 	@Override
-	public List<CarroCompra> findByUsuario(Usuario usuario) {
-		return carrocompraRepository.findByUsuario(usuario);
+	public CarroCompra findByUsuarioAndEstado(Usuario usuario, String estado) {
+		return carrocompraRepository.findByUsuarioAndEstado(usuario, estado);
 	}
 
 	

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.ElAmigoLeal.Impl.UsersService;
 import com.example.ElAmigoLeal.Utilities.LoginUtil;
-import com.google.zxing.Result;
 
 @Service
 public class UsersServiceImpl  implements UsersService {
@@ -31,7 +30,7 @@ public class UsersServiceImpl  implements UsersService {
 			while (rs.next()) 
 			{
 				if(rs.getString(8).equals(correo) && rs.getString(9).equals(password)) {
-					flag = rs.getInt(3);
+					flag = rs.getInt(1);
 				}else {
 					System.out.println("Correo/contraseña invalidos");
 					flag = 0;

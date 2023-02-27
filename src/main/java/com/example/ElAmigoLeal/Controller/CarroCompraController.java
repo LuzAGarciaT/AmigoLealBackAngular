@@ -4,26 +4,17 @@ package com.example.ElAmigoLeal.Controller;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,12 +24,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ElAmigoLeal.Entity.CarroCompra;
-import com.example.ElAmigoLeal.Entity.Rol;
-import com.example.ElAmigoLeal.Entity.CarroCompra;
+import com.example.ElAmigoLeal.Entity.Usuario;
 import com.example.ElAmigoLeal.Impl.CarroCompraService;
-import com.example.ElAmigoLeal.Repository.CarroCompraRepository;
+import com.example.ElAmigoLeal.Impl.UsuarioService;
 import com.example.ElAmigoLeal.Utilities.ListarCarroCompraExcel;
-import com.example.ElAmigoLeal.Utilities.ListarRolExcel;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -58,7 +47,7 @@ public class CarroCompraController {
 	private CarroCompraService carrocompraService;
 	
 	@Autowired
-	private DataSource dataSource;
+	private UsuarioService usuarioService;
 	
 	@GetMapping("/carrocompra")
 	public List<CarroCompra> listar() {
@@ -82,7 +71,6 @@ public class CarroCompraController {
 		CarroCompra carrocompraActual = carrocompraService.findbyId(idcarro);
 		carrocompraActual.setUsuario(carrocompra.getUsuario());
 		carrocompraActual.setPrecio(carrocompra.getPrecio());
-		carrocompraActual.setCantidad(carrocompra.getCantidad());
 		carrocompraActual.setCantidadpagar(carrocompra.getCantidadpagar());
 		carrocompraActual.setEstado(carrocompra.getEstado());
 		
@@ -93,6 +81,13 @@ public class CarroCompraController {
 	@DeleteMapping("/carrocompra/eliminar/{idcarro}")
 	public void eliminar(@PathVariable Integer idcarro) {
 		carrocompraService.delete(idcarro);
+	}
+	
+	@GetMapping("/carrocompra/usuario/{idusuario}")
+	public CarroCompra listarporusuario(@PathVariable Integer idusuario) {
+		Usuario usuario = usuarioService.findbyId(idusuario);
+		return carrocompraService.findByUsuarioAndEstado(usuario, "activo");
+		
 	}
 	
 	@GetMapping("/carrocompra/exportarExcelCarro")
@@ -122,19 +117,18 @@ public class CarroCompraController {
 		    headers.set(HttpHeaders.CONTENT_DISPOSITION, "incline;filename=ReporteCarroCompra.pdf");
 		    return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
 	}
-	
 	@GetMapping("/carrocompra/ExportarGraficaCarroCompra")
 	public ResponseEntity<byte[]> generateGrafica() throws Exception, JRException {
 		
-		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/compras.jrxml"));
+		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(carrocompraService.findAll());
+		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/Grafica/GraficaCarrito.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
-		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, dataSource.getConnection());		    
+		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);		    
 		    byte[] data = JasperExportManager.exportReportToPdf(report);
 		    
 		    HttpHeaders headers=new HttpHeaders();
 		    headers.set(HttpHeaders.CONTENT_DISPOSITION, "incline;filename=GraficaCarroCompra.pdf");
 		    return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
-	
 	}
 }
