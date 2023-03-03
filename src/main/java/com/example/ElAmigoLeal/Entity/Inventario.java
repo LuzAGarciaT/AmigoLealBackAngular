@@ -25,7 +25,7 @@ public class Inventario {
 	private Integer cantidad;
 	
 	@ManyToOne
-	@JoinColumn(name="nombreproducto")
+	@JoinColumn(name="idproducto")
 	private Producto producto;
 	
 	public Inventario() {

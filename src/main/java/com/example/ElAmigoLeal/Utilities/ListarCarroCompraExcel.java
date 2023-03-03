@@ -81,11 +81,6 @@ public class ListarCarroCompraExcel {
 			hoja.autoSizeColumn(0);
 			celda.setCellStyle(estilo);
 			
-			celda = fila.createCell(2);
-			celda.setCellValue(carrocompra.getCantidad());
-			hoja.autoSizeColumn(0);
-			celda.setCellStyle(estilo);
-			
 			celda = fila.createCell(3);
 			celda.setCellValue(carrocompra.getCantidadpagar());
 			hoja.autoSizeColumn(0);
