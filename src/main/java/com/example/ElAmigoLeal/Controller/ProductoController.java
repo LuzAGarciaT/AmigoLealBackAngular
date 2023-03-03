@@ -87,6 +87,7 @@ public class ProductoController {
 		productoActual.setDescuento(producto.getDescuento());
 		productoActual.setPrecioproducto(producto.getPrecioproducto());
 		productoActual.setDescripcion(producto.getDescripcion());
+		productoActual.setImagen(producto.getImagen());
 
 		return productoService.save(productoActual);
 	}

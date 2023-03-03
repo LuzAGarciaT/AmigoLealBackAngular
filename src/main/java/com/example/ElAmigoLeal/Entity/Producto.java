@@ -1,5 +1,6 @@
 package com.example.ElAmigoLeal.Entity;
 
+import java.sql.Blob;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,6 +30,8 @@ public class Producto {
 	private Double precioproducto;
 	@Column(name = "descripcion", length = 45)
 	private String descripcion;
+	@Column(name = "imagen")
+	private String imagen;
 	
 	@ManyToOne
 	@JoinColumn(name="idcategoria")
@@ -63,6 +66,14 @@ public class Producto {
 		
 	}
 
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
 	public Integer getIdproducto() {
 		return idproducto;
@@ -164,7 +175,7 @@ public class Producto {
 	}
 
 
-	public Producto(Integer idproducto, String nombreproducto, Double precioproducto, String descripcion,
+	public Producto(Integer idproducto, String nombreproducto, Double precioproducto, String descripcion, String imagen,
 			Categoria categoria, Descuento descuento, List<Inventario> inventario, List<CarroProducto> carroProducto,
 			List<Proveedor> proveedor, List<FacturaProducto> facturaProducto) {
 		super();
@@ -172,6 +183,7 @@ public class Producto {
 		this.nombreproducto = nombreproducto;
 		this.precioproducto = precioproducto;
 		this.descripcion = descripcion;
+		this.imagen = imagen;
 		this.categoria = categoria;
 		this.descuento = descuento;
 		this.inventario = inventario;
@@ -181,13 +193,14 @@ public class Producto {
 	}
 
 
-	public Producto(String nombreproducto, Double precioproducto, String descripcion, Categoria categoria,
-			Descuento descuento, List<Inventario> inventario, List<CarroProducto> carroProducto,
+	public Producto(String nombreproducto, Double precioproducto, String descripcion, String imagen,
+			Categoria categoria, Descuento descuento, List<Inventario> inventario, List<CarroProducto> carroProducto,
 			List<Proveedor> proveedor, List<FacturaProducto> facturaProducto) {
 		super();
 		this.nombreproducto = nombreproducto;
 		this.precioproducto = precioproducto;
 		this.descripcion = descripcion;
+		this.imagen = imagen;
 		this.categoria = categoria;
 		this.descuento = descuento;
 		this.inventario = inventario;
@@ -200,9 +213,9 @@ public class Producto {
 	@Override
 	public String toString() {
 		return "Producto [idproducto=" + idproducto + ", nombreproducto=" + nombreproducto + ", precioproducto="
-				+ precioproducto + ", descripcion=" + descripcion + ", categoria=" + categoria + ", descuento="
-				+ descuento + ", inventario=" + inventario + ", carroProducto=" + carroProducto + ", proveedor="
-				+ proveedor + ", facturaProducto=" + facturaProducto + "]";
+				+ precioproducto + ", descripcion=" + descripcion + ", imagen=" + imagen + ", categoria=" + categoria
+				+ ", descuento=" + descuento + ", inventario=" + inventario + ", carroProducto=" + carroProducto
+				+ ", proveedor=" + proveedor + ", facturaProducto=" + facturaProducto + "]";
 	}
 
 }
