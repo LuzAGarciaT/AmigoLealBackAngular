@@ -121,7 +121,7 @@ public class CarroCompraController {
 	public ResponseEntity<byte[]> generateGrafica() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(carrocompraService.findAll());
-		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/Grafica/GraficaCarrito.jrxml"));
+		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/Grafica/GraficaDeCarrito.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
 		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);		    
