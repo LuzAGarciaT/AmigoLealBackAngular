@@ -129,7 +129,7 @@ public class ProductoController {
 	public ResponseEntity<byte[]> generateGrafica() throws Exception, JRException {
 		
 
-	    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/Precio.jrxml"));
+	    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/GraficaDeProductos.jrxml"));
 	    
 	    HashMap<String, Object> map=new HashMap<>();
 	    JasperPrint report = JasperFillManager.fillReport(compileReport, null, dataSource.getConnection());		    
