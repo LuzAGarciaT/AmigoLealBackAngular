@@ -98,7 +98,7 @@ public class TipoDocumentoController {
 		
 	}
 
-	@GetMapping("/tipodocumento/ExportarPdfDoc")
+	@GetMapping("/ExportarPdfDoc")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 
 		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(
