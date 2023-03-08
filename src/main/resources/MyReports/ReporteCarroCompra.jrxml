@@ -88,6 +88,14 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="10" y="5" width="50" height="50" uuid="fde27140-3a62-4241-9e46-eb3f2070a6d2"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="510" y="5" width="50" height="50" uuid="029bf54b-4acc-4ccf-900e-68a099c19ff8"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

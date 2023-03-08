@@ -7,19 +7,24 @@
 		<![CDATA[SELECT idProducto, nombreProducto, nombrecategoria, precioProducto, descripcion
 FROM productos AS p INNER JOIN categorias as c on p.idCategoria = c.idCategoria ORDER BY idProducto]]>
 	</queryString>
-	<field name="idproducto" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="idproducto"/>
-		<property name="com.jaspersoft.studio.field.label" value="idproducto"/>
+	<field name="idProducto" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idProducto"/>
+		<property name="com.jaspersoft.studio.field.label" value="idProducto"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="productos"/>
 	</field>
-	<field name="nombreproducto" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="nombreproducto"/>
-		<property name="com.jaspersoft.studio.field.label" value="nombreproducto"/>
+	<field name="nombreProducto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombreProducto"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreProducto"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="productos"/>
 	</field>
-	<field name="precioproducto" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="precioproducto"/>
-		<property name="com.jaspersoft.studio.field.label" value="precioproducto"/>
+	<field name="nombrecategoria" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombreCategoria"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombrecategoria"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="categorias"/>
+	</field>
+	<field name="precioProducto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="precioProducto"/>
+		<property name="com.jaspersoft.studio.field.label" value="precioProducto"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="productos"/>
 	</field>
 	<field name="descripcion" class="java.lang.String">
@@ -84,6 +89,14 @@ FROM productos AS p INNER JOIN categorias as c on p.idCategoria = c.idCategoria 
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="10" y="5" width="50" height="50" uuid="01b9b8ad-5a0b-4a36-8089-76baeccda7a5"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="510" y="5" width="50" height="50" uuid="88f19b19-c85e-482b-aac8-227d0bc48a2a"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -119,7 +132,7 @@ FROM productos AS p INNER JOIN categorias as c on p.idCategoria = c.idCategoria 
 				<text><![CDATA[Id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="250" y="0" width="188" height="26" uuid="f4c1c0d5-c645-4262-995f-9dccb4bd5d2b"/>
+				<reportElement x="380" y="0" width="188" height="26" uuid="f4c1c0d5-c645-4262-995f-9dccb4bd5d2b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
@@ -139,35 +152,46 @@ FROM productos AS p INNER JOIN categorias as c on p.idCategoria = c.idCategoria 
 				</textElement>
 				<text><![CDATA[Producto]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="240" y="0" width="188" height="26" uuid="8e527cd4-730c-4d0f-8039-504db01f5662"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="19" splitType="Stretch">
+		<band height="18" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="52" height="14" uuid="079bffed-60ad-483c-8989-196c76f56599">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4d897525-840c-43c7-89d5-a187d2499635"/>
-				</reportElement>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{idproducto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="80" y="0" width="87" height="14" uuid="bff9a689-71a1-4fd1-b329-804d5680b7c2">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9aebef6c-d132-4f05-97b4-d1ccb2f518d0"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{nombreproducto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="180" y="0" width="79" height="14" uuid="c0e96418-b0cc-4c2e-8137-70d74b9110c6">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="157fe280-8b65-42e1-b9e8-35f3580f5c1e"/>
-				</reportElement>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{precioproducto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="320" y="2" width="190" height="14" uuid="277a20ac-4787-4ced-8a7e-e21008865d84">
+				<reportElement x="401" y="1" width="169" height="14" uuid="277a20ac-4787-4ced-8a7e-e21008865d84">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2aa03db5-3180-4891-a061-9a3b17f50086"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="16" uuid="829893a8-9d80-4714-a7ea-993eb9fdb5b8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="59c42575-13a7-4ae7-90d9-3df768722b5f"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{idProducto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="100" height="16" uuid="a226a571-573c-4f1e-bdc5-4a5ceaf1e73a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b1f555c9-7417-496f-8493-600965fe8d23"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nombreProducto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="16" uuid="861e7b28-cc97-4b74-8fd9-c9435fae429d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="981f616a-2655-4277-a5c5-ea575fcafa61"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{precioProducto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="2" width="100" height="14" uuid="f3ea1bca-7f3a-4013-b436-b3c7c98219aa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="92bf5e7a-2919-491f-845b-d0e8dc8540fa"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nombrecategoria}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

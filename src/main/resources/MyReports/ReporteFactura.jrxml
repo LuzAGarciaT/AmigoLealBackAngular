@@ -6,22 +6,22 @@
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM facturas]]>
 	</queryString>
-	<field name="idfactura" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="idfactura"/>
-		<property name="com.jaspersoft.studio.field.label" value="idfactura"/>
+	<field name="idFactura" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idFactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="idFactura"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="facturas"/>
 	</field>
-	<field name="nombre" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
-		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+	<field name="idUsuario" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idUsuario"/>
+		<property name="com.jaspersoft.studio.field.label" value="idUsuario"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="facturas"/>
 	</field>
-	<field name="fecha" class="java.lang.String">
+	<field name="fecha" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.name" value="fecha"/>
 		<property name="com.jaspersoft.studio.field.label" value="fecha"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="facturas"/>
 	</field>
-	<field name="preciofact" class="java.lang.String">
+	<field name="preciofact" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="preciofact"/>
 		<property name="com.jaspersoft.studio.field.label" value="preciofact"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="facturas"/>
@@ -83,6 +83,14 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="10" y="5" width="50" height="50" uuid="01f2ba48-0974-4acf-ae90-70b2753c072e"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="511" y="5" width="50" height="50" uuid="7f680291-bad0-4e00-bdac-85e016b707aa"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -141,19 +149,13 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="15" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="59" height="15" uuid="a5f79d88-7652-4a5b-a71e-36b80074b0fa">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6a8ec713-039b-40e9-a9ee-5a05f021e3fa"/>
 				</reportElement>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{idfactura}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="90" y="0" width="100" height="15" uuid="b009ead2-c19d-43bf-833f-7a877c9c1630">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1f733f0d-c7ef-444d-9d71-eb9cf3bac5c2"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="200" y="0" width="100" height="15" uuid="19bc94e0-21f1-4996-aae9-0bebbc7195b8">
@@ -166,6 +168,12 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2efc8a06-c8c5-41f1-966d-5346b545b85f"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{preciofact}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="100" height="15" uuid="450a5c3d-40bd-4555-a38c-f0c84ed2af39">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="89833299-0b07-4c98-ba8c-a5c37b82923c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{idUsuario}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

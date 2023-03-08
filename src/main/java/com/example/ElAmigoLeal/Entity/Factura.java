@@ -46,6 +46,9 @@ public class Factura {
 	public Factura() {
 		
 	}
+	public String getNombre() {
+		return usuario.getPnombre();
+	}
 
 	public Integer getIdfactura() {
 		return idfactura;

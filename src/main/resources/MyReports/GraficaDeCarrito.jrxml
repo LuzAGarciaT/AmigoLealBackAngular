@@ -32,61 +32,69 @@ inner join usuarios as us on car.idUsuario = us.idUsuario group by cliente]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="103" splitType="Stretch">
+		<band height="105" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="54" width="802" height="23" backcolor="#24324F" uuid="e72843eb-7d48-4945-a928-c117beab9b99"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="0" y="-13" width="802" height="60" forecolor="#182254" backcolor="#24324F" uuid="8ac4e7b5-8659-4385-8e01-572988e51a00"/>
+				<reportElement x="-20" y="-19" width="842" height="81" forecolor="#24324F" backcolor="#162B3C" uuid="4308bc91-e42e-4138-8ec0-214a74d71423"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="211" y="-3" width="380" height="41" forecolor="#FFFFFF" uuid="b135cc82-d5bd-4c86-9101-498829db9386"/>
+				<reportElement x="263" y="0" width="275" height="41" forecolor="#FFFFFF" uuid="25df5369-0477-4ce0-911a-c35099b4b66e"/>
 				<textElement textAlignment="Center">
 					<font size="32"/>
 				</textElement>
 				<text><![CDATA[EL AMIGOLEAL]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="-4" width="50" height="50" uuid="79b70106-1794-4fdc-aa81-6633e504f461"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="740" y="-4" width="50" height="50" uuid="ba8e4cfa-fb96-493d-bdbd-65ea8a84f8cd"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="-20" y="70" width="842" height="30" backcolor="#162B3C" uuid="bd6b794d-7382-4c4c-8ba4-0af4e44ce9db"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="74" width="91" height="31" forecolor="#FFFFFF" uuid="dc10d4f6-daf6-43d9-b52c-109e0aa82dc0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="80" y="58" width="190" height="30" forecolor="#FFFFFF" uuid="53560f3f-eab4-4879-a9fe-431cfe5a9ec5"/>
+				<reportElement x="80" y="75" width="190" height="30" forecolor="#FFFFFF" uuid="639cb309-e653-4b4a-a969-c873a73f3f6e"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="57" width="91" height="31" forecolor="#FFFFFF" uuid="5555b911-62ce-4bae-a3d6-d15eacf8ea74"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[FECHA:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="350" y="56" width="91" height="31" forecolor="#FFFFFF" uuid="0358052a-2d7e-4687-a28d-97500d97eb9d"/>
+				<reportElement x="350" y="73" width="91" height="31" forecolor="#FFFFFF" uuid="c43d907b-73e4-4be1-8e37-5308f88c6ef0"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[HORA:]]></text>
 			</staticText>
 			<textField pattern="HH:mm">
-				<reportElement x="400" y="57" width="190" height="30" forecolor="#FFFFFF" uuid="1e16ff65-be5c-431b-acb8-56197666d04d"/>
+				<reportElement x="400" y="74" width="190" height="30" forecolor="#FFFFFF" uuid="bc4910d2-f27d-4824-a8d8-a6ba2191836e"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<textField evaluationTime="Report">
-				<reportElement style="Column header" x="710" y="55" width="40" height="20" forecolor="#FFFFFF" uuid="47687460-b8dc-4351-a69f-2ef5807bae09"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 			<textField>
-				<reportElement style="Column header" x="630" y="55" width="80" height="20" forecolor="#FFFFFF" uuid="aaf64a61-4828-4743-900b-1946b4cd997f"/>
+				<reportElement style="Column header" x="630" y="72" width="80" height="20" forecolor="#FFFFFF" uuid="5a1e246c-f04d-48af-ad5f-2c210a0d435e"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="710" y="72" width="40" height="20" forecolor="#FFFFFF" uuid="d29bc142-e180-41a5-95f1-d422b90576ca"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

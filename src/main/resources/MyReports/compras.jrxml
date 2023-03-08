@@ -24,21 +24,29 @@ inner join usuarios as us on car.idUsuario = us.idUsuario group by cliente]]>
 	<title>
 		<band height="79" splitType="Stretch">
 			<rectangle>
-				<reportElement x="-20" y="-19" width="595" height="81" forecolor="#182254" backcolor="#24324F" uuid="9c79ba70-a58e-4289-aea2-4edc9a8865f1"/>
+				<reportElement x="-20" y="-20" width="595" height="81" forecolor="#24324F" backcolor="#162B3C" uuid="9dd00ece-b51e-499d-8e93-1227e572cf62"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="87" y="1" width="380" height="41" forecolor="#FFFFFF" uuid="19ade13c-5945-4622-9e94-8d33be8803e5"/>
+				<reportElement x="87" y="0" width="380" height="41" forecolor="#FFFFFF" uuid="c5a92b7f-9e2b-4cd2-ba73-02240a1ebc58"/>
 				<textElement textAlignment="Center">
 					<font size="32"/>
 				</textElement>
 				<text><![CDATA[EL AMIGOLEAL]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="-5" width="50" height="50" uuid="46c174a3-6432-4a9b-843f-1a6d1086ca49"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="500" y="-5" width="50" height="50" uuid="d4dac012-23a5-4bce-8a06-5d919545111a"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
 			<rectangle>
-				<reportElement x="-20" y="0" width="595" height="30" backcolor="#24324F" uuid="7aba044c-971a-4978-bf94-e10e7b090ff9"/>
+				<reportElement x="-20" y="1" width="595" height="30" backcolor="#162B3C" uuid="e893f683-6734-4ada-96bd-291f7cf66248"/>
 			</rectangle>
 		</band>
 	</pageHeader>

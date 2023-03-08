@@ -56,7 +56,10 @@ public class Inventario {
 	}
 
 
-
+	public String getNombreproducto(){
+		return producto.getNombreproducto();
+	}
+	
 	public Integer getCantidad() {
 		return cantidad;
 	}

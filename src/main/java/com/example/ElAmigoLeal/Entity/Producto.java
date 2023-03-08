@@ -78,7 +78,9 @@ public class Producto {
 	public Integer getIdproducto() {
 		return idproducto;
 	}
-
+	public Integer getIdProducto() {
+		return idproducto;
+	}
 
 	public void setIdproducto(Integer idproducto) {
 		this.idproducto = idproducto;
@@ -86,6 +88,9 @@ public class Producto {
 
 
 	public String getNombreproducto() {
+		return nombreproducto;
+	}
+	public String getNombreProducto() {
 		return nombreproducto;
 	}
 
@@ -98,7 +103,9 @@ public class Producto {
 	public Double getPrecioproducto() {
 		return precioproducto;
 	}
-
+	public Double getPrecioProducto() {
+		return precioproducto;
+	}
 
 	public void setPrecioproducto(Double precioproducto) {
 		this.precioproducto = precioproducto;
@@ -109,7 +116,9 @@ public class Producto {
 		return descripcion;
 	}
 
-
+	public String getNombrecategoria() {
+		return categoria.getNombrecategoria();
+	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}

@@ -26,21 +26,29 @@ inventarios as inv on inv.idProducto = pr.idProducto;]]>
 	<title>
 		<band height="81" splitType="Stretch">
 			<rectangle>
-				<reportElement x="-20" y="-19" width="595" height="81" forecolor="#182254" backcolor="#24324F" uuid="2468d35e-b305-4a50-b232-1c27505a340e"/>
+				<reportElement x="-20" y="-20" width="595" height="81" forecolor="#24324F" backcolor="#162B3C" uuid="de48ff41-d254-46e0-9963-a58748148094"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="87" y="1" width="380" height="41" forecolor="#FFFFFF" uuid="ab03d3d5-c241-4468-971b-75f8bac17a38"/>
+				<reportElement x="87" y="0" width="380" height="41" forecolor="#FFFFFF" uuid="b580d3f7-1c2e-4200-a39a-b98a2cb7e197"/>
 				<textElement textAlignment="Center">
 					<font size="32"/>
 				</textElement>
 				<text><![CDATA[EL AMIGOLEAL]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="-5" width="50" height="50" uuid="45053a74-8e8f-4aa8-93ad-e77cc0616b20"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="500" y="-5" width="50" height="50" uuid="0c9d1d51-a459-4e46-833e-2fc0efbd26ec"/>
+				<imageExpression><![CDATA["C:/Users/Adriana/Pictures/logo.JPG"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="45" splitType="Stretch">
 			<rectangle>
-				<reportElement x="-20" y="-4" width="595" height="30" backcolor="#24324F" uuid="3040784a-32ab-4f66-aa95-98089fbacbbc"/>
+				<reportElement x="-20" y="15" width="595" height="30" backcolor="#162B3C" uuid="a4e0fdaf-743f-4db1-9e29-e2b0cf26483e"/>
 			</rectangle>
 		</band>
 	</pageHeader>
@@ -48,7 +56,7 @@ inventarios as inv on inv.idProducto = pr.idProducto;]]>
 		<band height="470" splitType="Stretch">
 			<bar3DChart>
 				<chart evaluationTime="Report">
-					<reportElement x="0" y="150" width="550" height="320" uuid="f69a8449-5604-4ae3-b1a0-4a21b6a437d6"/>
+					<reportElement x="0" y="20" width="550" height="450" uuid="f69a8449-5604-4ae3-b1a0-4a21b6a437d6"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
