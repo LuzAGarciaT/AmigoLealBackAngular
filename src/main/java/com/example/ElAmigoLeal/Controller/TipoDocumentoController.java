@@ -98,13 +98,13 @@ public class TipoDocumentoController {
 		
 	}
 
-	@GetMapping("/tipodocumento/ExportarPdfDoc")
+	@GetMapping("/ExportarPdfDoc")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 
 		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(
 				tipodocumentoService.findAll());
 		JasperReport compileReport = JasperCompileManager
-				.compileReport(new FileInputStream("src/main/resources/MyReports/tipoDoc.jrxml"));
+				.compileReport(new FileInputStream("src/main/resources/MyReports/TipoDoc.jrxml"));
 
 		HashMap<String, Object> map = new HashMap<>();
 		JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);

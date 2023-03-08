@@ -103,7 +103,7 @@ public class FacturaController {
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(facturaService.findAll());
-		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/facturas.jrxml"));
+		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/ReporteFactura.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
 		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);		    

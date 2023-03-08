@@ -100,7 +100,7 @@ public class UsuarioController {
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(usuarioService.findAll());
-		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/usuarios.jrxml"));
+		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/ReporteUsuario.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
 		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);		    

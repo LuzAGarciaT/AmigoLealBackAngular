@@ -108,7 +108,7 @@ public class ProveedorController {
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(proveedorService.findAll());
-		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/proveedores.jrxml"));
+		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/ReporteProveedor.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
 		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);		    

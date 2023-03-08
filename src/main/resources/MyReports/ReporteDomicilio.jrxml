@@ -4,17 +4,17 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ConexionDb"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM tipodocumentos]]>
+		<![CDATA[SELECT * FROM domicilios]]>
 	</queryString>
-	<field name="iddoc" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="iddoc"/>
-		<property name="com.jaspersoft.studio.field.label" value="iddoc"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tipodocumentos"/>
+	<field name="iddomicilio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="iddomicilio"/>
+		<property name="com.jaspersoft.studio.field.label" value="iddomicilio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="domicilios"/>
 	</field>
-	<field name="tipodoc" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="tipodoc"/>
-		<property name="com.jaspersoft.studio.field.label" value="tipodoc"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tipodocumentos"/>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="domicilios"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -91,7 +91,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
 					<font fontName="Times New Roman" size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Reporte De Documento]]></text>
+				<text><![CDATA[Reporte De Domicilio]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -112,7 +112,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<text><![CDATA[Tipo Doc]]></text>
+				<text><![CDATA[Descripcion]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -122,13 +122,13 @@
 				<reportElement x="20" y="0" width="100" height="15" uuid="53f3a0a4-4486-47ee-bb7f-de6191efae79">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b01faef2-460c-4fa2-9307-7aada7da489c"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{iddoc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{iddomicilio}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="110" y="0" width="100" height="15" uuid="7166aa11-ca82-478e-a07e-1f2d9c4d2ced">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b01faef2-460c-4fa2-9307-7aada7da489c"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{tipodoc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

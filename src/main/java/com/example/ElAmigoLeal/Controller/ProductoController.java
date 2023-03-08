@@ -114,7 +114,7 @@ public class ProductoController {
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(productoService.findAll());
-		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/productos.jrxml"));
+		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/ReporteProducto.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
 		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);		    
@@ -129,7 +129,7 @@ public class ProductoController {
 	public ResponseEntity<byte[]> generateGrafica() throws Exception, JRException {
 		
 
-	    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/productos.jrxml"));
+	    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/GraficaDeProductos.jrxml"));
 	    
 	    HashMap<String, Object> map=new HashMap<>();
 	    JasperPrint report = JasperFillManager.fillReport(compileReport, null, dataSource.getConnection());		    
