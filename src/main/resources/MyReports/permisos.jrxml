@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tipoDoc" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a5c9b49-9dc5-422a-ac69-e92cf61ef530">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="permisos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a5c9b49-9dc5-422a-ac69-e92cf61ef530">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ConexionDb"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
@@ -14,17 +14,17 @@
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[select * from tipodocumentos]]>
+		<![CDATA[select * from permisos]]>
 	</queryString>
-	<field name="idDoc" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="idDoc"/>
-		<property name="com.jaspersoft.studio.field.label" value="idDoc"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tipodocumentos"/>
+	<field name="idPermiso" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idPermiso"/>
+		<property name="com.jaspersoft.studio.field.label" value="idPermiso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="permisos"/>
 	</field>
-	<field name="tipoDoc" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="tipoDoc"/>
-		<property name="com.jaspersoft.studio.field.label" value="tipoDoc"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tipodocumentos"/>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="permisos"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -32,60 +32,60 @@
 	<title>
 		<band height="102" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="54" width="802" height="23" backcolor="#24324F" uuid="01aa7804-2ded-4fdc-93b2-43e727cf8b11"/>
+				<reportElement x="0" y="54" width="802" height="23" backcolor="#24324F" uuid="74e71244-0ebe-4d79-b684-640a79b4fb14"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="0" y="-13" width="802" height="60" forecolor="#182254" backcolor="#24324F" uuid="f1483e58-7d41-4205-8b7d-4c550f21496a"/>
+				<reportElement x="0" y="-13" width="802" height="60" forecolor="#182254" backcolor="#24324F" uuid="d3d88d0f-96a7-4fe1-9ace-1c13bc8c3828"/>
 			</rectangle>
+			<staticText>
+				<reportElement x="211" y="-3" width="380" height="41" forecolor="#FFFFFF" uuid="ff950b7c-b3d7-4e92-85e7-72f21d37666e"/>
+				<textElement textAlignment="Center">
+					<font size="32"/>
+				</textElement>
+				<text><![CDATA[EL AMIGOLEAL]]></text>
+			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="80" y="58" width="190" height="30" forecolor="#FFFFFF" uuid="8ad2c8f9-1083-4b52-80b9-cdeae1953fdd"/>
+				<reportElement x="80" y="58" width="190" height="30" forecolor="#FFFFFF" uuid="e84f7c0c-e0d9-4eb0-91d9-d9c31cd920ee"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="57" width="91" height="31" forecolor="#FFFFFF" uuid="0db8cae7-9bd9-4e75-8f19-a5b1bbd66c2b"/>
+				<reportElement x="20" y="57" width="91" height="31" forecolor="#FFFFFF" uuid="b3f081d8-b52b-42ae-b72a-1e2804bf8f04"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[FECHA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="350" y="56" width="91" height="31" forecolor="#FFFFFF" uuid="2835b2f1-ce50-4eab-b87a-e869f49616c1"/>
+				<reportElement x="350" y="56" width="91" height="31" forecolor="#FFFFFF" uuid="c6ce1944-93d4-4b0a-8621-399dcfe7e8cf"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[HORA:]]></text>
 			</staticText>
 			<textField pattern="HH:mm">
-				<reportElement x="400" y="57" width="190" height="30" forecolor="#FFFFFF" uuid="0c5cac3d-1725-4746-92ec-e7c1d9279356"/>
+				<reportElement x="400" y="57" width="190" height="30" forecolor="#FFFFFF" uuid="17178d2a-6fc1-47b2-9e62-558f375dabfb"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Column header" x="630" y="55" width="80" height="20" forecolor="#FFFFFF" uuid="47c52b55-ff5f-4b12-a609-316efce1e251"/>
+				<reportElement style="Column header" x="630" y="55" width="80" height="20" forecolor="#FFFFFF" uuid="e18bedad-7360-4fb4-8eb0-02a7300266e3"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement style="Column header" x="710" y="55" width="40" height="20" forecolor="#FFFFFF" uuid="df5883b3-b63f-4bba-ae0b-5f590a526f17"/>
+				<reportElement style="Column header" x="710" y="55" width="40" height="20" forecolor="#FFFFFF" uuid="0b5064db-28dc-458c-901b-2a6ba0680e1d"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="211" y="-3" width="380" height="41" forecolor="#FFFFFF" uuid="4ae2b3b2-5067-49b3-8355-c6c9d3fd35e9"/>
-				<textElement textAlignment="Center">
-					<font size="32"/>
-				</textElement>
-				<text><![CDATA[EL AMIGOLEAL]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -94,22 +94,22 @@
 	<columnHeader>
 		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement style="Column header" x="0" y="0" width="398" height="18" forecolor="#000000" uuid="4d24c9f6-b130-4d12-9664-a3181b613278">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1244c5de-f934-4ca9-a10f-9fc467f4d162"/>
+				<reportElement style="Column header" x="0" y="0" width="398" height="18" forecolor="#000000" uuid="12076be7-e763-49cd-a0c5-b9e73e104938">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40852df8-0717-4f7d-abbc-9517489ae3ed"/>
 				</reportElement>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[idDoc]]></text>
+				<text><![CDATA[idPermiso]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="398" y="0" width="398" height="18" forecolor="#000000" uuid="66b94d0d-6f79-4b79-8e96-06f4dbcadb3b">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d1637e5a-2dbc-4359-a384-27e7be3816e9"/>
+				<reportElement style="Column header" x="398" y="0" width="398" height="18" forecolor="#000000" uuid="4b983bea-c355-4443-9be7-28c7a2a97562">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6a351973-3196-4dab-b135-b9939de1fda0"/>
 				</reportElement>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[tipoDoc]]></text>
+				<text><![CDATA[descripcion]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -118,22 +118,22 @@
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="34a2ae4b-4055-476b-8676-d499f6af510b"/>
 				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" positionType="Float" x="0" y="0" width="398" height="18" uuid="4dcadaf7-4f8a-4f26-8966-be7562cde761">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1244c5de-f934-4ca9-a10f-9fc467f4d162"/>
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="398" height="18" uuid="0bbc66a3-e87f-4286-9056-528cbe07041b">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40852df8-0717-4f7d-abbc-9517489ae3ed"/>
 					</reportElement>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{idDoc}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{idPermiso}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" positionType="Float" x="398" y="0" width="398" height="18" uuid="33349d8b-5935-476e-81d4-3ac4e304d43e">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d1637e5a-2dbc-4359-a384-27e7be3816e9"/>
+					<reportElement style="Detail" positionType="Float" x="398" y="0" width="398" height="18" uuid="94101861-27ae-449b-a030-c76d888bd162">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6a351973-3196-4dab-b135-b9939de1fda0"/>
 					</reportElement>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{tipoDoc}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -151,7 +151,7 @@
 	<pageFooter>
 		<band height="25" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="1" width="802" height="23" backcolor="#24324F" uuid="6d3a5935-84f5-4959-ac14-eca3116a1acd"/>
+				<reportElement x="0" y="-3" width="802" height="23" backcolor="#24324F" uuid="1d7a3aff-27d7-4c96-b8c4-37a102439424"/>
 			</rectangle>
 		</band>
 	</pageFooter>

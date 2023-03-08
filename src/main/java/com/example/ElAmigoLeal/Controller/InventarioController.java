@@ -122,7 +122,7 @@ public class InventarioController {
 	@GetMapping("/inventario/ExportarGraficaInventario")
 	public ResponseEntity<byte[]> generateGrafica() throws Exception, JRException {
 		
-		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/GraficaDeInventario.jrxml"));
+		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/inventarios.jrxml"));
 		    
 		    HashMap<String, Object> map=new HashMap<>();
 		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, dataSource.getConnection() );		    

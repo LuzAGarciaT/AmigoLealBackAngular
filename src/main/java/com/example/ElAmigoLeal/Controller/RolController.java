@@ -104,7 +104,7 @@ public class RolController {
 
 		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(rolService.findAll());
 		JasperReport compileReport = JasperCompileManager
-				.compileReport(new FileInputStream("src/main/resources/MyReports/ReporteRol.jrxml"));
+				.compileReport(new FileInputStream("src/main/resources/MyReports/roles.jrxml"));
 
 		HashMap<String, Object> map = new HashMap<>();
 		JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);

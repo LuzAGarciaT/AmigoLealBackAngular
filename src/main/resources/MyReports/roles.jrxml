@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tipoDoc" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a5c9b49-9dc5-422a-ac69-e92cf61ef530">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="roles" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a5c9b49-9dc5-422a-ac69-e92cf61ef530">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ConexionDb"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
@@ -14,17 +14,17 @@
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[select * from tipodocumentos]]>
+		<![CDATA[select * from roles]]>
 	</queryString>
-	<field name="idDoc" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="idDoc"/>
-		<property name="com.jaspersoft.studio.field.label" value="idDoc"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tipodocumentos"/>
+	<field name="idRol" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idRol"/>
+		<property name="com.jaspersoft.studio.field.label" value="idRol"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="roles"/>
 	</field>
-	<field name="tipoDoc" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="tipoDoc"/>
-		<property name="com.jaspersoft.studio.field.label" value="tipoDoc"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="tipodocumentos"/>
+	<field name="tipoRol" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tipoRol"/>
+		<property name="com.jaspersoft.studio.field.label" value="tipoRol"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="roles"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -32,55 +32,55 @@
 	<title>
 		<band height="102" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="54" width="802" height="23" backcolor="#24324F" uuid="01aa7804-2ded-4fdc-93b2-43e727cf8b11"/>
+				<reportElement x="0" y="54" width="802" height="23" backcolor="#24324F" uuid="5ed62b5d-f740-4680-b967-b310e207b446"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="0" y="-13" width="802" height="60" forecolor="#182254" backcolor="#24324F" uuid="f1483e58-7d41-4205-8b7d-4c550f21496a"/>
+				<reportElement x="0" y="-13" width="802" height="60" forecolor="#182254" backcolor="#24324F" uuid="3bc579eb-d787-4dac-ba6a-8148b15e13bb"/>
 			</rectangle>
 			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="80" y="58" width="190" height="30" forecolor="#FFFFFF" uuid="8ad2c8f9-1083-4b52-80b9-cdeae1953fdd"/>
+				<reportElement x="80" y="58" width="190" height="30" forecolor="#FFFFFF" uuid="61798efb-7001-499d-b24e-29ef50fd3788"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="57" width="91" height="31" forecolor="#FFFFFF" uuid="0db8cae7-9bd9-4e75-8f19-a5b1bbd66c2b"/>
+				<reportElement x="20" y="57" width="91" height="31" forecolor="#FFFFFF" uuid="1f534267-2ef6-47d8-b3c1-cfd6b3228aa7"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[FECHA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="350" y="56" width="91" height="31" forecolor="#FFFFFF" uuid="2835b2f1-ce50-4eab-b87a-e869f49616c1"/>
+				<reportElement x="350" y="56" width="91" height="31" forecolor="#FFFFFF" uuid="b64318ac-b244-456e-991a-2d676de88c1d"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[HORA:]]></text>
 			</staticText>
 			<textField pattern="HH:mm">
-				<reportElement x="400" y="57" width="190" height="30" forecolor="#FFFFFF" uuid="0c5cac3d-1725-4746-92ec-e7c1d9279356"/>
+				<reportElement x="400" y="57" width="190" height="30" forecolor="#FFFFFF" uuid="f68e3e54-5a2a-4c0c-9bd4-d0840f5dd230"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Column header" x="630" y="55" width="80" height="20" forecolor="#FFFFFF" uuid="47c52b55-ff5f-4b12-a609-316efce1e251"/>
+				<reportElement style="Column header" x="630" y="55" width="80" height="20" forecolor="#FFFFFF" uuid="4f5bac9f-67e0-4a89-bb55-e186bb6542f6"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement style="Column header" x="710" y="55" width="40" height="20" forecolor="#FFFFFF" uuid="df5883b3-b63f-4bba-ae0b-5f590a526f17"/>
+				<reportElement style="Column header" x="710" y="55" width="40" height="20" forecolor="#FFFFFF" uuid="dea4e730-3ed3-42c4-ad21-cbb174954044"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="211" y="-3" width="380" height="41" forecolor="#FFFFFF" uuid="4ae2b3b2-5067-49b3-8355-c6c9d3fd35e9"/>
+				<reportElement x="211" y="-3" width="380" height="41" forecolor="#FFFFFF" uuid="becb3fab-f76e-44d4-97e9-fc91826af4ff"/>
 				<textElement textAlignment="Center">
 					<font size="32"/>
 				</textElement>
@@ -94,22 +94,22 @@
 	<columnHeader>
 		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement style="Column header" x="0" y="0" width="398" height="18" forecolor="#000000" uuid="4d24c9f6-b130-4d12-9664-a3181b613278">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1244c5de-f934-4ca9-a10f-9fc467f4d162"/>
+				<reportElement style="Column header" x="0" y="0" width="398" height="18" forecolor="#000000" uuid="068fa1bd-2555-4577-9b6e-35cf3d4ab568">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7569fc9f-c82f-4d1b-a0d7-f6ded3ad7344"/>
 				</reportElement>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[idDoc]]></text>
+				<text><![CDATA[idRol]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="398" y="0" width="398" height="18" forecolor="#000000" uuid="66b94d0d-6f79-4b79-8e96-06f4dbcadb3b">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d1637e5a-2dbc-4359-a384-27e7be3816e9"/>
+				<reportElement style="Column header" x="398" y="0" width="398" height="18" forecolor="#000000" uuid="940db533-6e32-45c4-a2c5-dc519471ae0c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="897e7b02-00cf-4248-bf4d-bf7bc3c9c31e"/>
 				</reportElement>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<text><![CDATA[tipoDoc]]></text>
+				<text><![CDATA[tipoRol]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -118,22 +118,22 @@
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="34a2ae4b-4055-476b-8676-d499f6af510b"/>
 				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" positionType="Float" x="0" y="0" width="398" height="18" uuid="4dcadaf7-4f8a-4f26-8966-be7562cde761">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1244c5de-f934-4ca9-a10f-9fc467f4d162"/>
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="398" height="18" uuid="956e6881-56b9-41e0-bff5-c79adabf60da">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7569fc9f-c82f-4d1b-a0d7-f6ded3ad7344"/>
 					</reportElement>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{idDoc}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{idRol}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement style="Detail" positionType="Float" x="398" y="0" width="398" height="18" uuid="33349d8b-5935-476e-81d4-3ac4e304d43e">
-						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d1637e5a-2dbc-4359-a384-27e7be3816e9"/>
+					<reportElement style="Detail" positionType="Float" x="398" y="0" width="398" height="18" uuid="c0128a9a-8067-45b3-9c15-558b5d285182">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="897e7b02-00cf-4248-bf4d-bf7bc3c9c31e"/>
 					</reportElement>
 					<textElement>
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{tipoDoc}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{tipoRol}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -149,9 +149,9 @@
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="25" splitType="Stretch">
+		<band height="28" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="1" width="802" height="23" backcolor="#24324F" uuid="6d3a5935-84f5-4959-ac14-eca3116a1acd"/>
+				<reportElement x="0" y="5" width="802" height="23" backcolor="#24324F" uuid="0c233f55-6a68-4e5a-a900-40404ff73192"/>
 			</rectangle>
 		</band>
 	</pageFooter>
