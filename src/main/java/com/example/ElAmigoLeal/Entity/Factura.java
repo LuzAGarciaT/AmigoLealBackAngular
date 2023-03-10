@@ -2,7 +2,6 @@ package com.example.ElAmigoLeal.Entity;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,76 +39,104 @@ public class Factura {
 	@JoinColumn(name = "idfactura", referencedColumnName = "idfactura")
 	private List<FacturaProducto> facturaProducto;
 	
+	@JsonIgnore
+	@OneToMany(targetEntity = Domicilio.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "idfactura", referencedColumnName = "idfactura")
+	private List<Domicilio> domicilio;
+	
 	
 	public Factura() {
 		
 	}
-	public String getNombre() {
-		return usuario.getPnombre();
-	}
+
 
 	public Integer getIdfactura() {
 		return idfactura;
 	}
 
+
 	public void setIdfactura(Integer idfactura) {
 		this.idfactura = idfactura;
 	}
+
 
 	public Date getFecha() {
 		return fecha;
 	}
 
+
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+
 
 	public Integer getPreciofact() {
 		return preciofact;
 	}
 
+
 	public void setPreciofact(Integer preciofact) {
 		this.preciofact = preciofact;
 	}
+
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
+
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
 
 	public List<FacturaProducto> getFacturaProducto() {
 		return facturaProducto;
 	}
 
+
 	public void setFacturaProducto(List<FacturaProducto> facturaProducto) {
 		this.facturaProducto = facturaProducto;
 	}
 
+
+	public List<Domicilio> getDomicilio() {
+		return domicilio;
+	}
+
+
+	public void setDomicilio(List<Domicilio> domicilio) {
+		this.domicilio = domicilio;
+	}
+
+
 	public Factura(Integer idfactura, Date fecha, Integer preciofact, Usuario usuario,
-			List<FacturaProducto> facturaProducto) {
+			List<FacturaProducto> facturaProducto, List<Domicilio> domicilio) {
 		super();
 		this.idfactura = idfactura;
 		this.fecha = fecha;
 		this.preciofact = preciofact;
 		this.usuario = usuario;
 		this.facturaProducto = facturaProducto;
+		this.domicilio = domicilio;
 	}
 
-	public Factura(Date fecha, Integer preciofact, Usuario usuario, List<FacturaProducto> facturaProducto) {
+
+	public Factura(Date fecha, Integer preciofact, Usuario usuario, List<FacturaProducto> facturaProducto,
+			List<Domicilio> domicilio) {
 		super();
 		this.fecha = fecha;
 		this.preciofact = preciofact;
 		this.usuario = usuario;
 		this.facturaProducto = facturaProducto;
+		this.domicilio = domicilio;
 	}
+
 
 	@Override
 	public String toString() {
 		return "Factura [idfactura=" + idfactura + ", fecha=" + fecha + ", preciofact=" + preciofact + ", usuario="
-				+ usuario + ", facturaProducto=" + facturaProducto + ",";
+				+ usuario + ", facturaProducto=" + facturaProducto + ", domicilio=" + domicilio + "]";
 	}
-	
+
 }

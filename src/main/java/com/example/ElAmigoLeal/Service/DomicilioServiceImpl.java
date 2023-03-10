@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.ElAmigoLeal.Entity.CarroCompra;
 import com.example.ElAmigoLeal.Entity.Domicilio;
+import com.example.ElAmigoLeal.Entity.Factura;
 import com.example.ElAmigoLeal.Impl.DomicilioService;
 import com.example.ElAmigoLeal.Repository.DomicilioRepository;
 
@@ -36,12 +37,10 @@ public class DomicilioServiceImpl implements DomicilioService{
 	public void delete(Integer iddomicilio) {
 		domicilioRepository.deleteById(iddomicilio);
 	}
-
+	
 	@Override
-	public List<Domicilio> findbyCarrocompra(CarroCompra carrocompra) {
-		return domicilioRepository.findByCarrocompra(carrocompra);
-
+	public List<Domicilio> findByFactura(Factura factura) {
+		return domicilioRepository.findByFactura(factura);
 	}
 
-	
 }

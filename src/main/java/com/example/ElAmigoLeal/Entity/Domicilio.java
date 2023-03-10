@@ -1,8 +1,5 @@
 package com.example.ElAmigoLeal.Entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -23,72 +18,83 @@ public class Domicilio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer iddomicilio;
-	@Column(name = "descripcion", length = 45)
-	private String descripcion;
-
-	@JsonIgnore
-	@OneToMany (targetEntity = DetalleDomicilio.class, cascade=CascadeType.ALL)
-	@JoinColumn (name="id", referencedColumnName = "iddomicilio")
-		
-	private List<DetalleDomicilio> detalledomicilio;
+	@Column(name = "direccion", length = 45)
+	private String direccion;
+	@Column(name = "estado", length = 45)
+	private String estado;
 	
-	@ManyToOne
-	@JoinColumn(name="idcarro")
-	private CarroCompra carrocompra;
+	@ManyToOne 
+	@JoinColumn(name="idfactura")
+	private Factura factura;
+	
 	
 	public Domicilio() {
 		
 	}
 
-	public Domicilio(Integer iddomicilio, String descripcion) {
-		super();
-		this.iddomicilio = iddomicilio;
-		this.descripcion = descripcion;
-	}
-
-	public Domicilio( String descripcion) {
-		super();
-		this.descripcion = descripcion;
-	}
 
 	public Integer getIddomicilio() {
 		return iddomicilio;
 	}
 
+
 	public void setIddomicilio(Integer iddomicilio) {
 		this.iddomicilio = iddomicilio;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
-	public List<DetalleDomicilio> getDetalledomicilio() {
-		return detalledomicilio;
+
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setDetalledomicilio(List<DetalleDomicilio> detalledomicilio) {
-		this.detalledomicilio = detalledomicilio;
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
-	public CarroCompra getCarrocompra() {
-		return carrocompra;
+
+	public Factura getFactura() {
+		return factura;
 	}
 
-	public void setCarrocompra(CarroCompra carrocompra) {
-		this.carrocompra = carrocompra;
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
 	}
+
+
+	public Domicilio(Integer iddomicilio, String direccion, String estado, Factura factura) {
+		super();
+		this.iddomicilio = iddomicilio;
+		this.direccion = direccion;
+		this.estado = estado;
+		this.factura = factura;
+	}
+
+
+	public Domicilio(String direccion, String estado, Factura factura) {
+		super();
+		this.direccion = direccion;
+		this.estado = estado;
+		this.factura = factura;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Domicilio [iddomicilio=" + iddomicilio + ", descripcion=" + descripcion + ", detalledomicilio="
-				+ detalledomicilio + ", carrocompra=" + carrocompra + "]";
+		return "Domicilio [iddomicilio=" + iddomicilio + ", direccion=" + direccion + ", estado=" + estado
+				+ ", factura=" + factura + "]";
 	}
-
 	
 	
 }
