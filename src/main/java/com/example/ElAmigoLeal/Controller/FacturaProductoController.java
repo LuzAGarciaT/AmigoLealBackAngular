@@ -46,6 +46,8 @@ public class FacturaProductoController {
 	@PutMapping("/facturaproducto/{id}")
 	public FacturaProducto editar(@RequestBody FacturaProducto facturaproducto, @PathVariable Integer id) {
 		FacturaProducto facturaproductoActual = facturaproductoService.findbyId(id);
+		facturaproductoActual.setFactura(facturaproducto.getFactura());
+		facturaproductoActual.setProducto(facturaproducto.getProducto());
 		facturaproductoActual.setCantidad(facturaproducto.getCantidad());
 		facturaproductoActual.setSubtotal(facturaproducto.getSubtotal());
 		return facturaproductoService.save(facturaproductoActual);

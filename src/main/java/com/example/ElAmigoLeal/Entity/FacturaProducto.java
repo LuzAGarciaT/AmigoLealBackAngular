@@ -1,5 +1,6 @@
 package com.example.ElAmigoLeal.Entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class FacturaProducto {
 	@Column(name = "subtotal")
 	private Integer subtotal;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name="idfactura")
 	private Factura factura;
 	

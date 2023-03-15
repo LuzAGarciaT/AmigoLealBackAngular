@@ -70,6 +70,7 @@ public class FacturaController {
 	// eliminar factura
 		@DeleteMapping("/factura/eliminar/{idfactura}")
 		public void eliminar(@PathVariable Integer idfactura) {
+			System.out.println(idfactura);
 			facturaService.delete(idfactura);
 		}
 

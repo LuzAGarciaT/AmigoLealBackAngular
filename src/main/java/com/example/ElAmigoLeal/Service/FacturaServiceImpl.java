@@ -33,6 +33,7 @@ public class FacturaServiceImpl implements FacturaService {
 
 	@Override
 	public void delete(Integer idfactura) {
+		System.out.println(idfactura);
 		facturaRepository.deleteById(idfactura);
 	}
 
