@@ -67,12 +67,12 @@ public class ListarFacturaProductoExcel {
 			celda.setCellStyle(estilo);
 			
 			
-			celda = fila.createCell(2);
+			celda = fila.createCell(1);
 			celda.setCellValue(facturaproducto.getCantidad());
 			hoja.autoSizeColumn(0);
 			celda.setCellStyle(estilo);
 			
-			celda = fila.createCell(3);
+			celda = fila.createCell(2);
 			celda.setCellValue(facturaproducto.getSubtotal());
 			hoja.autoSizeColumn(0);
 			celda.setCellStyle(estilo);
