@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,22 +21,34 @@ public class FacturaProducto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	@Column(name = "cantidad")
 	private Integer cantidad;
+	
 	@Column(name = "subtotal")
 	private Integer subtotal;
 	
-	@ManyToOne(cascade = CascadeType.REMOVE)
-	@JoinColumn(name="idfactura")
-	private Factura factura;
+	@Transient
+	private String nombreProducto;
+
 	
+	@ManyToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "idfactura")
+	private Factura factura;
+
 	@ManyToOne
-	@JoinColumn(name="idproducto")
+	@JoinColumn(name = "idproducto")
 	private Producto producto;
 
-    public FacturaProducto() {
-		
+	public FacturaProducto() {
+
 	}
+	
+	public String getNombreProducto() {
+		// Retorna el nombre del producto si está disponible, sino retorna una cadena vacía
+		return this.producto != null ? this.producto.getNombreProducto() : "";
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -77,7 +90,7 @@ public class FacturaProducto {
 		this.producto = producto;
 	}
 
-	public FacturaProducto(Integer id, Integer cantidad, Integer subtotal, Factura factura, Producto producto) {
+	public FacturaProducto(Integer id, Integer cantidad,  Integer subtotal,Factura factura, Producto producto) {
 		super();
 		this.id = id;
 		this.cantidad = cantidad;
@@ -100,4 +113,5 @@ public class FacturaProducto {
 				+ factura + ", producto=" + producto + "]";
 	}
 
+	
 }

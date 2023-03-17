@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -82,6 +84,7 @@ public class FacturaProductoController {
 	public List <FacturaProducto> guardartodos(@RequestBody List <FacturaProducto> facturaProducto) {
 		return facturaproductoService.saveAll(facturaProducto);
 	}
+
 	
 	@GetMapping("/facturaproducto/exportarExcelFacturaP")
 	public ResponseEntity<InputStreamResource> exportar() throws IOException {
@@ -95,7 +98,7 @@ public class FacturaProductoController {
 		
 	}
 	
-	@GetMapping("/facturaproducto/ExportarPdfFacturaP")
+	@GetMapping("/facturaproducto/ExportarPdfFacturaP/{id}")
 	public ResponseEntity<byte[]> generatePdfFacturaP() throws Exception, JRException {
 		
 		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(facturaproductoService.findAll());
