@@ -26,6 +26,7 @@ public class TipoDocumento {
 	@Column(name = "tipodoc", length = 45)
 	private String tipodoc;
 	
+
 	@JsonIgnore
 	@OneToMany(targetEntity = Usuario.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idusuario", referencedColumnName = "iddoc")

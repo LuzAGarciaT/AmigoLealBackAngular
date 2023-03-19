@@ -128,7 +128,7 @@
 				<text><![CDATA[Valor Descuento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="3" width="100" height="26" uuid="86289c11-a22b-4a16-8c74-761e27ce3fbe"/>
+				<reportElement x="220" y="0" width="100" height="26" uuid="86289c11-a22b-4a16-8c74-761e27ce3fbe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
