@@ -6,24 +6,24 @@
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM carrocompras]]>
 	</queryString>
-	<field name="idcarro" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="idcarro"/>
-		<property name="com.jaspersoft.studio.field.label" value="idcarro"/>
+	<field name="idCarro" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idCarro"/>
+		<property name="com.jaspersoft.studio.field.label" value="idCarro"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="carrocompras"/>
 	</field>
-	<field name="precio" class="java.lang.Integer">
+	<field name="idUsuario" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idUsuario"/>
+		<property name="com.jaspersoft.studio.field.label" value="idUsuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="carrocompras"/>
+	</field>
+	<field name="precio" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="precio"/>
 		<property name="com.jaspersoft.studio.field.label" value="precio"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="carrocompras"/>
 	</field>
-	<field name="cantidad" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="cantidad"/>
-		<property name="com.jaspersoft.studio.field.label" value="cantidad"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="carrocompras"/>
-	</field>
-	<field name="cantidadpagar" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="cantidadpagar"/>
-		<property name="com.jaspersoft.studio.field.label" value="cantidadpagar"/>
+	<field name="cantidadPagar" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="cantidadPagar"/>
+		<property name="com.jaspersoft.studio.field.label" value="cantidadPagar"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="carrocompras"/>
 	</field>
 	<field name="estado" class="java.lang.String">
@@ -138,21 +138,14 @@
 				<text><![CDATA[Precio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="0" width="100" height="26" uuid="86289c11-a22b-4a16-8c74-761e27ce3fbe"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<text><![CDATA[Cantidad]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="280" y="0" width="100" height="26" uuid="86289c11-a22b-4a16-8c74-761e27ce3fbe"/>
+				<reportElement x="190" y="0" width="100" height="26" uuid="86289c11-a22b-4a16-8c74-761e27ce3fbe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
 				<text><![CDATA[Cantidad Pagar]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="0" width="100" height="26" uuid="86289c11-a22b-4a16-8c74-761e27ce3fbe"/>
+				<reportElement x="310" y="0" width="100" height="26" uuid="86289c11-a22b-4a16-8c74-761e27ce3fbe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
@@ -176,19 +169,13 @@
 				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="210" y="0" width="100" height="15" uuid="19bc94e0-21f1-4996-aae9-0bebbc7195b8">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2efc8a06-c8c5-41f1-966d-5346b545b85f"/>
-				</reportElement>
-				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="290" y="0" width="100" height="15" uuid="19bc94e0-21f1-4996-aae9-0bebbc7195b8">
+				<reportElement x="200" y="0" width="100" height="15" uuid="19bc94e0-21f1-4996-aae9-0bebbc7195b8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2efc8a06-c8c5-41f1-966d-5346b545b85f"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{cantidadpagar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="410" y="0" width="100" height="15" uuid="19bc94e0-21f1-4996-aae9-0bebbc7195b8">
+				<reportElement x="340" y="-4" width="100" height="15" uuid="19bc94e0-21f1-4996-aae9-0bebbc7195b8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2efc8a06-c8c5-41f1-966d-5346b545b85f"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>

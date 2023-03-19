@@ -5,12 +5,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +24,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.ElAmigoLeal.Entity.Factura;
 import com.example.ElAmigoLeal.Entity.FacturaProducto;
@@ -98,18 +102,29 @@ public class FacturaProductoController {
 		
 	}
 	
-	@GetMapping("/facturaproducto/ExportarPdfFacturaP")
-	public ResponseEntity<byte[]> generatePdfFacturaP() throws Exception, JRException {
-		
-		    JRBeanCollectionDataSource beanCollectionDataSource=new JRBeanCollectionDataSource(facturaproductoService.findAll());
-		    JasperReport compileReport = JasperCompileManager.compileReport(new FileInputStream("src/main/resources/MyReports/factura.jrxml"));
-		    
-		    HashMap<String, Object> map=new HashMap<>();
-		    JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);		    
-		    byte[] data = JasperExportManager.exportReportToPdf(report);
-		    
-		    HttpHeaders headers=new HttpHeaders();
-		    headers.set(HttpHeaders.CONTENT_DISPOSITION, "incline;filename=ReporteFacturaProducto.pdf");
-		    return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
-	}
+	 @GetMapping("/facturaproducto/ExportarPdfFacturaP/{idfactura}")
+	    public ResponseEntity<byte[]> generatePdf(@PathVariable Integer idfactura) throws Exception, JRException {
+	        try {
+	            Integer id = Integer.valueOf(idfactura);
+	            JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(
+	            facturaproductoService.findAll());
+	            JasperReport compileReport = JasperCompileManager
+	            .compileReport(new FileInputStream("src/main/resources/MyReports/factura.jrxml"));
+
+	            // Crear objeto Map para el parámetro idfactura
+	            Map<String, Object> parameters = new HashMap<>();
+	            parameters.put("idfactura", id);
+
+	            JasperPrint report = JasperFillManager.fillReport(compileReport, parameters, beanCollectionDataSource);
+	            byte[] data = JasperExportManager.exportReportToPdf(report);
+
+	            HttpHeaders headers = new HttpHeaders();
+	            headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=FacturaProducto.pdf");
+
+	            return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
+	        } catch (NumberFormatException e) {
+	            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+	                    "El parámetro idfactura debe ser un número entero válido", e);
+	        }
+	    }
 }

@@ -45,8 +45,6 @@ public class TipoDocumento {
 		this.tipodoc = tipodoc;
 	}
 
-	
-
 	public Integer getIddoc() {
 	return iddoc;
 	}

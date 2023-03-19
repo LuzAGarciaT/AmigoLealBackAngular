@@ -4,17 +4,22 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ConexionDb"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM categorias]]>
+		<![CDATA[SELECT * FROM descuentos]]>
 	</queryString>
-	<field name="idcategoria" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="idcategoria"/>
-		<property name="com.jaspersoft.studio.field.label" value="idcategoria"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="categorias"/>
+	<field name="idDescuento" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idDescuento"/>
+		<property name="com.jaspersoft.studio.field.label" value="idDescuento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="descuentos"/>
 	</field>
-	<field name="nombrecategoria" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="nombrecategoria"/>
-		<property name="com.jaspersoft.studio.field.label" value="nombrecategoria"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="categorias"/>
+	<field name="valorDescuento" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="valorDescuento"/>
+		<property name="com.jaspersoft.studio.field.label" value="valorDescuento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="descuentos"/>
+	</field>
+	<field name="fechaDescuento" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fechaDescuento"/>
+		<property name="com.jaspersoft.studio.field.label" value="fechaDescuento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="descuentos"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -99,44 +104,57 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
 					<font fontName="Times New Roman" size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Reporte De Categorias]]></text>
+				<text><![CDATA[Reporte De Descuentos]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="33" splitType="Stretch">
+		<band height="34" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="26" width="571" height="1" uuid="78024635-0a58-430d-a3c3-101651c24ba4"/>
 			</line>
 			<staticText>
-				<reportElement x="20" y="0" width="59" height="26" uuid="b9791ed8-20c7-40c9-8017-74b562b6fa9f"/>
+				<reportElement x="6" y="3" width="59" height="26" uuid="b9791ed8-20c7-40c9-8017-74b562b6fa9f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
 				<text><![CDATA[Id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="160" y="0" width="140" height="26" uuid="fd700bf4-6456-473b-a9e4-c20fb76732b2"/>
+				<reportElement x="120" y="3" width="140" height="26" uuid="fd700bf4-6456-473b-a9e4-c20fb76732b2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<text><![CDATA[Nombre categoria]]></text>
+				<text><![CDATA[Valor Descuento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="4" width="140" height="26" uuid="ad85553b-f115-418c-9133-d60747797197"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Fecha Descuento]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="17" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement x="40" y="0" width="100" height="17" uuid="9edd7fdf-5510-4f07-a1fe-22c71c57d80e">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4944c6f1-709d-4e83-8e09-f2a307849aff"/>
+				<reportElement x="30" y="0" width="100" height="30" uuid="b9ca21af-395f-4e04-8609-4b71079c2350">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e17624cc-3fb2-42df-8824-fcb3d484e7e2"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{idcategoria}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{idDescuento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="180" y="0" width="100" height="17" uuid="63fa2298-b59f-4a75-bfca-f19036cab3da">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea5645e9-0fbf-49c4-9c38-376897e5047f"/>
+				<reportElement x="150" y="0" width="100" height="30" uuid="7a91f29d-c3f3-4cbb-a3e6-0821bb0e1997">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0db82c04-f682-4828-8cf9-ab21254e8320"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{nombrecategoria}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{valorDescuento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="30" uuid="e2f535fa-212a-43b5-80fa-4f6d0424abaf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3e03869c-35c6-4857-afa6-2886170cad97"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fechaDescuento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

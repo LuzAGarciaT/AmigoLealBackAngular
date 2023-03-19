@@ -60,7 +60,7 @@ public class TipoDocumentoController {
 		return tipodocumentoService.findAll();
 	}
 
-	// guardar tipo de documento 
+	// guardar tipo de documento
 	@PostMapping("/tipodocumento/guardar")
 	public TipoDocumento guardar(@RequestBody TipoDocumento tipodocumento) {
 		return tipodocumentoService.save(tipodocumento);
@@ -88,23 +88,24 @@ public class TipoDocumentoController {
 
 	@GetMapping("/tipodocumento/exportarExcelTipoDoc")
 	public ResponseEntity<InputStreamResource> exportar() throws IOException {
-	
+
 		List<TipoDocumento> listatipoDocumento = tipodocumentoService.findAll();
 		ListarTipoDocumentoExcel excelExportar = new ListarTipoDocumentoExcel(listatipoDocumento);
 		ByteArrayInputStream bais = excelExportar.export();
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "inline; filename=listatipodocumento.xlsx");
 		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
-		
+
 	}
 
-	@GetMapping("/ExportarPdfDoc")
+	@GetMapping("/tipodocumento/ExportarPdfDoc")
 	public ResponseEntity<byte[]> generatePdf() throws Exception, JRException {
 
 		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(
 				tipodocumentoService.findAll());
-		JasperReport compileReport = JasperCompileManager
-				.compileReport(new FileInputStream("src/main/resources/MyReports/TipoDoc.jrxml"));
+		JasperReport compileReport = JasperCompileManager // ole si se da cuenta que el tipodoc no existe? en el informe
+															// osea ese archivo no existe
+				.compileReport(new FileInputStream("src/main/resources/MyReports/TipoDocumento.jrxml"));
 
 		HashMap<String, Object> map = new HashMap<>();
 		JasperPrint report = JasperFillManager.fillReport(compileReport, null, beanCollectionDataSource);

@@ -216,7 +216,7 @@
 				<reportElement x="0" y="10" width="571" height="19" backcolor="#162B3C" uuid="002ba879-3d37-4335-8dff-fad651cc21b4"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="216" y="11" width="141" height="17" forecolor="#FFFFFF" uuid="ef955741-8688-4cb2-a7b2-938098fabd9b"/>
+				<reportElement x="190" y="11" width="141" height="17" forecolor="#FFFFFF" uuid="ef955741-8688-4cb2-a7b2-938098fabd9b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="11"/>
 				</textElement>

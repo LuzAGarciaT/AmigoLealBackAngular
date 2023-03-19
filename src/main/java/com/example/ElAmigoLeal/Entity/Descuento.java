@@ -26,7 +26,7 @@ public class Descuento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer iddescuento;
 
-	@Column(name = "valordescuento", length = 45)
+	@Column(name = "valordescuento")
 	private Integer valordescuento;
 	
 	@Column(name = "fechadescuento", length = 45)

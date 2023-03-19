@@ -35,7 +35,7 @@ public class Factura {
 	private Usuario usuario;
 	
 	@JsonIgnore
-	@OneToMany(targetEntity = FacturaProducto.class, mappedBy = "factura")
+	@OneToMany(targetEntity = FacturaProducto.class, mappedBy = "factura", cascade = CascadeType.ALL)
 	private List<FacturaProducto> facturaProducto;
 	
 	@JsonIgnore

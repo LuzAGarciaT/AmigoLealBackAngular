@@ -62,7 +62,7 @@ public class ListarFacturaProductoExcel {
 			Row fila = hoja.createRow(numeroFilas ++);
 			
 			Cell celda = fila.createCell(0);
-			celda.setCellValue(facturaproducto.getId());
+			celda.setCellValue(facturaproducto.getID());
 			hoja.autoSizeColumn(0);
 			celda.setCellStyle(estilo);
 			
